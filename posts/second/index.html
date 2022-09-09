@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mobile-VIT [Paper Summary] &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Mobile-VIT [Paper Summary]</h1>
+  <time datetime=2022-09-09T21:30:05&#43;0530 class="post-date">Fri, Sep 9, 2022</time>
+  <p><a href="https://paperswithcode.com/paper/mobilevit-light-weight-general-purpose-and">Papers With Code</a></p>
+<h2 id="observations">Observations</h2>
+<ol>
+<li>Theres a <strong>global inductive bias</strong> in CNN’s (invariance to shift and scale) which is why CNN’s have comparable performance w.r.t Transformers (Reference to this statement is in the Transformer survey paper). Transformer models overcome this with the help of extensive training regimes, large datasets and larger models. (It will be good if we mention this in the paper somewhere)</li>
+<li>CoreML library was used to perform testing on I- phone 12</li>
+</ol>
+<h2 id="good-things-about-the-paper">Good things about the paper</h2>
+<ol>
+<li>the paper has two significant contributions
+<ol>
+<li>
+<p>A novel architecture which <strong>combines convolution block from MobileNetV2 and the self attention block.</strong> This is how it captures global and local dependencies</p>
+</li>
+<li>
+<p>Introduces a <strong>Multi-scale sampler for training efficiency.</strong> Fine tuning on images with a larger resolution is a well know method to boost training accuracy. Methods have also been known which can introduce larger resolution images during the training process itself. But these guys have written a new sampler which varies the batch size according to the size of the image. <strong>Smaller images will have larger batch size and vice versa.</strong> Every i’th iteration introduces a smaller batch but with a large batch size. This may not be relevant to us as we don’t plan to include a survey of train on/for edge devices, but it is good to know how to boost the training accuracy of models like these.</p>
+</li>
+<li>
+<p>They have also experimented with MobileVIT as the backbone to downstream tasks like detection and segmentation, showing results like -</p>
+<blockquote>
+<p>The performance of Deep-Lab-v3 is improved by 1.4%, and its size is reduced by 1.6× when MobileViT is used as a backbone instead of Mobile-Net-v2. Also, MobileViT gives competitive performance to model with ResNet-101 while requiring 9× fewer parameters; suggesting MobileViT is a powerful backbone.</p>
+</blockquote>
+</li>
+<li>
+<p>The architecture is simple itself. They start with a couple of Mobile-Net-v2 blocks which downsamples the input. after this a Self attention layer is used on the processed feature map (note that the input shape is the same as the output shape for these layer). This output is then concatenated with the outputs from a parallel convolution operation. Then again point-wise convolutions are used on this concatenated layer . This whole process is used twice (two transformer layers only)</p>
+</li>
+<li>
+<p>I really like the idea of fusing attention and convolutional outputs with the help of another convolutional layer. Do LMK if this was original idea or copied from some other paper before this one</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="bad-things-about-the-paper">Bad things about the paper</h2>
+<ol>
+<li>
+<p>Just introducing transformer layers at two places in the model and the calling the model “VIT” makes no sense to me. It is clear that the model is Convolutional in nature. They have themselves mentioned that the significant amount of parameters come from these 2 layers. Also theres no experiment to show that the model gets a boost in performance because of these 2 layers. For example they can <strong>replace the Attention layer and perform a couple of experiments to show that the model doesn’t perform as good as it does with the attention layer</strong>.</p>
+</li>
+<li>
+<p>They said they have used the swish activation function for the entire model. Yes theoretically its better than a simple linear activation function but for an architecture to be deployed on edge devices i would rather <strong>add more parameters that to waste computation on a complex non linear activation function</strong>.</p>
+</li>
+<li>
+<p>The exact value of FLOPS is not mentioned for any variant of the model. They just mention that it is roughly half the FLOPS of DeIT on image-net dataset. So we will have to get the exact value of FLOPS on our own. (How do we calculate FLOPS with code btw?)</p>
+</li>
+<li>
+<p>Recommend everyone to go through the final paragraph of the paper labelled discussion. It says that even though the model is smaller then some well know CNN’s, on mobile devices because -</p>
+<blockquote>
+<p>This difference is primarily because of two reasons. First, <strong>dedicated CUDA kernels exist for
+transformers on GPUs</strong>, which are used out-of-the-box in ViTs to improve their scalability and efficiency on GPUs (e.g., Shoeybi et al., 2019; Lepikhin et al., 2021). Second, CNNs benefit from several device-level optimisations, including batch normalisation fusion with convolutional layers (Jacob et al., 2018). These optimisations improve latency and memory access. However, such dedicated and optimised operations for transformers are currently not available for mobile devices</p>
+</blockquote>
+</li>
+<li>
+<p>They haven’t used positional embedding in their transformer layers</p>
+</li>
+</ol>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

@@ -6,17 +6,15 @@
     <description>Recent content on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Sep 2022 23:38:21 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Sep 2022 21:30:05 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello World</title>
-      <link>https://nishantb06.github.io/posts/hello-world/</link>
-      <pubDate>Thu, 08 Sep 2022 23:38:21 +0530</pubDate>
+      <title>Mobile-VIT [Paper Summary]</title>
+      <link>https://nishantb06.github.io/posts/second/</link>
+      <pubDate>Fri, 09 Sep 2022 21:30:05 +0530</pubDate>
       
-      <guid>https://nishantb06.github.io/posts/hello-world/</guid>
-      <description>hugo new posts/second.md will create a new post on the website and then hugo server will reflect that in the local host write the front matter manually as well if you want to create your own website
-commands hugo server -D and hugo server are same
-to deploy changes to original website use
-hugo -D go to public repo and commit and push changes from there to nishantb06.github.io repo to add images dont add them in static folder but use a url instead</description>
+      <guid>https://nishantb06.github.io/posts/second/</guid>
+      <description>Papers With Code
+Observations Theres a global inductive bias in CNN’s (invariance to shift and scale) which is why CNN’s have comparable performance w.r.t Transformers (Reference to this statement is in the Transformer survey paper). Transformer models overcome this with the help of extensive training regimes, large datasets and larger models. (It will be good if we mention this in the paper somewhere) CoreML library was used to perform testing on I- phone 12 Good things about the paper the paper has two significant contributions A novel architecture which combines convolution block from MobileNetV2 and the self attention block.</description>
     </item>
     
     <item>
@@ -25,8 +23,7 @@ hugo -D go to public repo and commit and push changes from there to nishantb06.g
       <pubDate>Sun, 31 Oct 2021 21:25:02 +0100</pubDate>
       
       <guid>https://nishantb06.github.io/about/</guid>
-      <description>Who am I Hi, my name is Nishant Bhansali. I&amp;rsquo;m working as a Machine Learning Engineer at Sharechat
-Contact Email - nishantbhansali80@gmail.com</description>
+      <description>Who am I? Hi, my name is Nishant Bhansali. I&amp;rsquo;m working as a Machine Learning Engineer at Sharechat. I have majorly worked on solving Computer Vision and Digital Image Processing based problems, ands thats where I would say my expertise lies. Be it recent transformer architectures or archaic image processing algorithms, I have my my hands dirtied by almost everything vision based. My work at Sharechat has been around Image Enhancement and Image Quality assessement.</description>
     </item>
     
   </channel>
