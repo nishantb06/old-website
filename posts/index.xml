@@ -6,14 +6,23 @@
     <description>Recent content in Posts on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Sep 2022 23:38:21 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Sep 2022 17:00:54 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Second</title>
+      <link>https://nishantb06.github.io/posts/second/</link>
+      <pubDate>Fri, 09 Sep 2022 17:00:54 +0530</pubDate>
+      
+      <guid>https://nishantb06.github.io/posts/second/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Hello World</title>
       <link>https://nishantb06.github.io/posts/hello-world/</link>
       <pubDate>Thu, 08 Sep 2022 23:38:21 +0530</pubDate>
       
       <guid>https://nishantb06.github.io/posts/hello-world/</guid>
-      <description></description>
+      <description>hugo new posts/second.md will create a new post on the website and then hugo server will reflect that in the local host</description>
     </item>
     
   </channel>
