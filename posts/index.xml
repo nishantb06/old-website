@@ -22,7 +22,10 @@
       <pubDate>Thu, 08 Sep 2022 23:38:21 +0530</pubDate>
       
       <guid>https://nishantb06.github.io/posts/hello-world/</guid>
-      <description>hugo new posts/second.md will create a new post on the website and then hugo server will reflect that in the local host</description>
+      <description>hugo new posts/second.md will create a new post on the website and then hugo server will reflect that in the local host write the front matter manually as well if you want to create your own website
+commands hugo server -D and hugo server are same
+to deploy changes to original website use
+hugo -D go to public repo and commit and push changes from there to nishantb06.github.io repo to add images dont add them in static folder but use a url instead</description>
     </item>
     
   </channel>
