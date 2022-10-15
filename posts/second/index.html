@@ -105,6 +105,10 @@ transformers on GPUs</strong>, which are used out-of-the-box in ViTs to improve 
 <p>They haven’t used positional embedding in their transformer layers</p>
 </li>
 </ol>
+<h3 id="fun-fact">Fun Fact</h3>
+<ul>
+<li>Layer Norms are used in transformer models because the batch size has to be kept too small because of the large size of transformer models. Batch size has to be kept extremly low (i have myself used 2 or 4 as batch-size),and as batch_norm us not that effective when batch size is so low. We use learning rate warmup for the same reason</li>
+</ul>
 
 </div>
 

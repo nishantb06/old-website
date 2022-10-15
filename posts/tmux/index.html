@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TMUX for Machine Learning Engineers &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>TMUX for Machine Learning Engineers</h1>
+  <time datetime=2022-10-16T00:06:25&#43;0530 class="post-date">Sun, Oct 16, 2022</time>
+  <h2 id="what-is-tmux">What is Tmux</h2>
+<p>TMUX (Terminal Multiplexer) is a program which helps create and manage various terminal sessions created from a terminal itself. We can detach these newly created terminal which helps in asyncronously running multiple programs.</p>
+<p>These terminal will keep on executing a particular command in the background untill we explicitly stop it after attaching it to an active terminal session.</p>
+<p>We can create multiple terminal sessions and view and manage them in the same window by toggling between them. Each of these sessions can be detached similary.</p>
+<h2 id="how-ml-engineers-use-tmux">How ML Engineers use TMUX</h2>
+<p>As ML Engineers we often extensive training on cloud services like AWS or GCP. To do so we ssh into the vm and giving us a terminal through which we run our training jobs.</p>
+<p>Often training a heavy ML model takes days. During this time if the terminal is disconnected from the VM due to inconsistent network connection or  simply even if the pc goes into sleep mode the terminal will disconnect resulting in abrubplty stopping of our trainig job.</p>
+<p>This is why it is better to create a tmux terminal from our terminal, run the training job on this new terminal and detach it. Now even if the terminal is disconnected from the VM the training job wont stop unless either we stop the VM itsself or in case of internet issues.</p>
+<p>We can also use terminal windows to manage or teminal commands better. For example we can use a new terminal window for each of these jobs</p>
+<ol>
+<li>Git commands</li>
+<li>Docker commands</li>
+<li>To monitor all different processes. <code>htop -i</code></li>
+<li>To monitor all the GPU’s through <code>nvdia-smi</code></li>
+<li>General commands like <code>ls</code> and <code>mv</code> and <code>pip installs</code></li>
+</ol>
+<h2 id="tmux-commands-cheatsheet">TMUX commands Cheatsheet</h2>
+<p>Creating and managing terminals . Below commands are for the root terminal</p>
+<ul>
+<li><code>sudo apt-get install tmux</code>  Installing on Linux environment</li>
+<li><code>tmux ls</code> List all active sessions</li>
+<li><code>tmux attach -t &lt;name&gt;</code> Atach a deattached session to the current terminal</li>
+<li><code>tmux kill-session -t &lt;name&gt;</code> Delete a terminal session</li>
+<li><code>tmux new -s &lt;name&gt;</code> Create a new terminal session</li>
+<li><code>tmux rename-session -t &lt;name&gt; &lt;new-name&gt;</code> Rename a terminal session</li>
+</ul>
+<p>These commands are for navigating your way through when you are inside an active tmux session</p>
+<ul>
+<li><code>Cntrl + b</code> - This is prefix for any tmux terminal command</li>
+<li><code>Cntrl + b</code> + % Split panes horizontally</li>
+<li><code>Cntrl + b</code> + <code>—-&gt;</code>, <code>&lt;-—</code> switch between right and left panes</li>
+<li><code>Cntrl + b</code> + <code>[</code> to enter scrolling mode, <code>q</code> to quit</li>
+<li><code>Cntrl + b</code>  + <code>d</code> Detach the terminal</li>
+<li><code>Cntrl + b</code>  + <code>c</code>  New terminal instance</li>
+<li><code>Cntrl + b</code> + <code>space</code> cycle through the terminal instances</li>
+<li><code>Cntrl + b</code> + <code>p</code> or <code>n</code> previous or next terminal instance</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

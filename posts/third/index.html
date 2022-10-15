@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Docker Cheatsheet &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2022. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Docker Cheatsheet</h1>
+  <time datetime=2022-09-11T10:15:51&#43;0530 class="post-date">Sun, Sep 11, 2022</time>
+  <h1 id="but-it-works-on-my-machine-">But it works on my machine !!??</h1>
+<p>The above sentence is exactly the problem docker solves -</p>
+<ul>
+<li>Earlier there was no way to run 2 applications (different OS) on the same machine. VMware solved this problem by introducing Virtual Machines. But we would have to separately assign RAM and storage for our second machine. This was still a bottleneck as we can&rsquo;t ship applications effectively with this, which is why Docker was invented. Docker is used so that we can share applications, including the operating system it was built on along with all of the dependencies of the applications.</li>
+</ul>
+<h2 id="definitions">Definitions</h2>
+<ul>
+<li><strong>Image</strong> : An image is a template of our source code along with all dependencies</li>
+<li><strong>Container</strong> : A container is a running instance of an image, if an image is equivalent to a class then a container is equivalent to an object of that class</li>
+<li><strong>Dockerfile</strong> : It is used to create the Docker Image</li>
+<li><strong>Docker Registry</strong> : Somewhere people can push their images where it can be accessed publicly. The most famous is DockerHub</li>
+<li><strong>Docker Daemon</strong> : Docker runs on a client-server architecture system. Docker Daemon is the server side of it</li>
+<li><strong>Docker Runtime</strong> :</li>
+<li><strong>Docker Engine</strong> :</li>
+</ul>
+<h2 id="commands-">Commands :</h2>
+<ol>
+<li>
+<p>start a container from ana already downloaded/built image</p>
+<p>-it is for the interactive shell</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -it &lt;IMAGE_NAME&gt;/&lt;IMAGE ID&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>list all running containers</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker ps
+</span></span></code></pre></div></li>
+<li>
+<p>Build an image from a dockerfile
+Dockerfile should be present in the current working directorys</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker build -t &lt;IMAGE_NAME&gt; .
+</span></span></code></pre></div><p>Always keep your IMAGE_NAMe as username/&lt;image_name&gt;, so that it is easier to push to dockerhub</p>
+</li>
+<li>
+<p>These commands are used to list all images downloaded in the local. It also lists what are the size of these images and their pseudo-names along with their hash-ids</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker images
+</span></span><span style="display:flex;"><span>docker images ls
+</span></span></code></pre></div><h2 id="how-to-make-a-dockerfile-for-ml-projects">How to make a DockerFile for ML projects</h2>
+<p>A Dockerfile is used to build a docker image which clones the contents of our project, sets up the base Operating systems and also downloads all the dependencies.</p>
+<ol>
+<li>Create a file named Dockerfile and .Dockerignore file in the root of the project</li>
+<li>Choose a base image, usually for python projects it is the Slim or the alpine Version taken from DockerHub. The <code>FROM</code> command in Dockerfile does just that.</li>
+<li>Then set the Working directory in your image and give it a name.</li>
+<li>Copy the requirements.txt file to the working directory of the image</li>
+<li>Install the dependencies via pip install -r requirements.txt. Also delete the cache of pip install to reduce the size of the image</li>
+<li>Then copy all the project files. Note that project files are copied only after installing the packages because if we make a change to the code then we dont necessarily want to compile the layer of the Docker Image which deals with all the dependencies but if make any changes to the requirements then we definitely want to built the layer again where we compile all the source files. This is a Docker standard best practice when dealing with Docker Containers.</li>
+</ol>
+<h2 id="docker-errors-and-how-to-solve-them">Docker Errors and how to solve them</h2>
+<ol>
+<li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+</span></span><span style="display:flex;"><span>ERRO<span style="color:#f92672">[</span>0000<span style="color:#f92672">]</span> Can<span style="color:#e6db74">&#39;t add file /Users/nishantbhansali/Desktop/image-quality-assessment/.git/hooks/update.sample to tar: io: read/write on closed pipe 
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">ERRO[0000] Can&#39;</span>t close tar writer: io: read/write on closed pipe
+</span></span></code></pre></div>Simply by restarting docker desktop. Maybe it looses connection to docker daemon when mac restarts</li>
+</ol>
+<h3 id="how-to-mount-a-docker-volumne">How to mount a docker volumne</h3>
+<p>mount the current volume to the desired location in the image. Here we mount it to /workspace/project.
+-v or &ndash;volume tags is used for this</p>
+<p>remember that the mount is two ways, if we change any file in the docker image, it reflects in the local as well.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run -it -v <span style="color:#66d9ef">$(</span>pwd<span style="color:#66d9ef">)</span>:/workspace/project 63b0afa6efdc bash
+</span></span></code></pre></div>
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
