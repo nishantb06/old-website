@@ -38,5 +38,16 @@ Earlier there was no way to run 2 applications (different OS) on the same machin
 Observations Theres a global inductive bias in CNN’s (invariance to shift and scale) which is why CNN’s have comparable performance w.r.t Transformers (Reference to this statement is in the Transformer survey paper). Transformer models overcome this with the help of extensive training regimes, large datasets and larger models. (It will be good if we mention this in the paper somewhere) CoreML library was used to perform testing on I- phone 12 Good things about the paper the paper has two significant contributions A novel architecture which combines convolution block from MobileNetV2 and the self attention block.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://nishantb06.github.io/posts/sscd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nishantb06.github.io/posts/sscd/</guid>
+      <description>A Self-Supervised Descriptor for Image Copy Detection - Review [Paper][Code]
+They have built upon the work of SimCLR and successfully tackled its limitations. Do give this paper a read if you are looking for a way of generating powerful embeddings/descriptors for your image dataset.
+Good things about the paper It Introduces regularisation term based on Entropy which is used to make the descriptors more sparse. Which means that negative images wont be as “close” to each other as they used to be in SimCLR.</description>
+    </item>
+    
   </channel>
 </rss>

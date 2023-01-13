@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title> &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2023. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1></h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  <h1 id="a-self-supervised-descriptor-for-image-copy-detection---review"><strong>A Self-Supervised Descriptor for Image Copy Detection - Review</strong></h1>
+<p>[<a href="https://arxiv.org/abs/2202.10261">Paper</a>][<a href="https://github.com/facebookresearch/sscd-copy-detection">Code</a>]</p>
+<p>They have built upon the work of SimCLR and successfully tackled its limitations.
+Do give this paper a read if you are looking for a way of generating powerful embeddings/descriptors for your image dataset.</p>
+<h2 id="good-things-about-the-paper">Good things about the paper</h2>
+<ul>
+<li>It Introduces regularisation term based on Entropy which is used to make the descriptors more sparse. Which means that negative images wont be as “close” to each other as they used to be in SimCLR. By doing this it overcomes a major drawback of SimCLR that a descriptor of size 128 was as efficient as a descriptor of size 512.</li>
+<li>It adds more robust augmentations to its augmentation pipeline. It has also adapted the InfoNCE loss function to make it suitable for cut-mix/mixup augmentation</li>
+<li>It makes good use of GeM Pooling which was heavily used in the Instance matching genre. Ablations studies also prove its importance</li>
+<li>Post Processing of descriptors is also very Innovative, whitening + L2 norm from the impressive FAISS library is something that I will have to definitely look into more</li>
+</ul>
+<h2 id="bad-things-about-the-paper">Bad things about the paper</h2>
+<ul>
+<li>They should have started with a more powerful model like ViT instead of a ResNet. Will have to check their code if it can be modified for “plug n play” for different models. Encoders for transformers should be modified to give suitable descriptors as Encoders are known for their pre-training capabilities and can be used for larger images as well</li>
+<li>Maybe SWaV could also be an inspiration to build upon this paper as it uses clustering algorithms to provide training time labels. For a task of copy detection this looks like a suitable task</li>
+</ul>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

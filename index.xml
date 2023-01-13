@@ -47,5 +47,16 @@ Observations Theres a global inductive bias in CNN’s (invariance to shift and 
       <description>Who am I? Hi, my name is Nishant Bhansali. I&amp;rsquo;m working as a Machine Learning Engineer at Sharechat,working remotely from Ahmedabad,India. I have majorly worked on solving Computer Vision and Digital Image Processing based problems, ands thats where I would say my expertise lies. Be it recent transformer architectures or archaic Image processing algorithms, I have my my hands dirtied by almost everything vision based. My work at Sharechat has been around Image Enhancement and Image Quality assessement.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://nishantb06.github.io/posts/sscd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://nishantb06.github.io/posts/sscd/</guid>
+      <description>A Self-Supervised Descriptor for Image Copy Detection - Review [Paper][Code]
+They have built upon the work of SimCLR and successfully tackled its limitations. Do give this paper a read if you are looking for a way of generating powerful embeddings/descriptors for your image dataset.
+Good things about the paper It Introduces regularisation term based on Entropy which is used to make the descriptors more sparse. Which means that negative images wont be as “close” to each other as they used to be in SimCLR.</description>
+    </item>
+    
   </channel>
 </rss>
