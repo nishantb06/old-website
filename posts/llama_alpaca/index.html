@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>An Overview of LLaMa and Alpaca models &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2023. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>An Overview of LLaMa and Alpaca models</h1>
+  <time datetime=2023-04-15T13:34:45&#43;0530 class="post-date">Sat, Apr 15, 2023</time>
+  <h1 id="the-annotated-llama">The Annotated LLaMA</h1>
+<h1 id="foreword">Foreword</h1>
+<p>Welcome to “<strong>The Annotated LLaMA</strong>”.</p>
+<p>One of the most brilliant and well-explained articles I have read is <a href="https://nlp.seas.harvard.edu/2018/04/03/attention.html">The Annotated Transformer</a> and the <a href="https://amaarora.github.io/posts/2021-07-26-annotateddetr.html">Annotated DETR</a>. It introduced <strong>Attention</strong> like no other post. The simple idea was to present an “annotated” version of the paper <a href="https://arxiv.org/abs/1706.03762">Attention is all you need</a> along with code.</p>
+<p>I have tried to do something similar with the LLaMA models without which the commercial use of many Large Language models would not have been possible.</p>
+<p><a href="https://arxiv.org/abs/2302.13971v1">arXiv</a> <a href="https://github.com/facebookresearch/llama">Official Code</a></p>
+<h1 id="introduction">Introduction</h1>
+<p>Before Llama came there were a series of really good Large Language Models (LLM’s) like Chinchilla, PaLM and GPT-3, only problem they were trained on proprietory data and were not accessible to the public for research or commercial use.</p>
+<p>On February 27, 2023 . Facebook released a set of models called as LLaMA models that were</p>
+<ol>
+<li>Perfomance comparable to State-of-the-art LLM models at that time</li>
+<li>Trained entirely on Publicly available data.</li>
+<li>Sizes as small as 7B parameter to as Large as 65B parameters</li>
+<li>Models were available publicly for research purposes only (Not for Commercial Use). Though these models were leaked later.</li>
+<li>Inference Code was Open sourced , (not the training code 😓)</li>
+</ol>
+<p>With these models, they prove that</p>
+<ol>
+<li>
+<p>It is possible to train SOTA LLM’s without the use propprietary and inaccessible datasets, like ??</p>
+</li>
+<li>
+<p>The perfomance of a model as small as 7B parameters will keep on increasing as with the size of the dataset it is trained on.</p>
+<blockquote>
+<p>For instance, although <a href="https://arxiv.org/abs/2203.15556">Hoffmann et al. (2022)</a> recommends training a 10B model on 200B tokens, we find that the performance of a 7B model continues to improve even after 1T tokens.</p>
+</blockquote>
+</li>
+<li>
+<p>They wanted to train and optimise a set of models for best possible perfomance at fixed Inference budgets, by training on more tokens than what is typically used</p>
+</li>
+</ol>
+<h1 id="datasets-used">Datasets Used</h1>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cae1a4ba-4a8c-4d13-96e8-4e50f828a81b/Untitled.png" alt="Untitled"></p>
+<p>These datasets were used for Pretraining of the model, Note that Wikipedia and Books dataset were used in approximately 2 epochs, while other dataset had only 1 epochs. Overall this datasets is of 4.3 TB!!</p>
+<p>In short they have trained a large transformer on a large quantity of daya using standard optimizer (AdamW).</p>
+<h3 id="architecture">Architecture</h3>
+<p>Major changes to the Architecture were</p>
+<ol>
+<li>Using RMSNorm instead of LayerNorm</li>
+<li>Using Rotary Postional Embeddings (which are relative and not absolute)</li>
+<li>Caching of keys and values during the attention Mechanism</li>
+<li>SwiGLU activation function</li>
+</ol>
+<h2 id="how-to-download-the-weights-on-your-machine">How to download the Weights on your Machine</h2>
+<p>Till now the easiest way I have found to download the weights on your machine is using the <a href="https://github.com/juncongmoo/pyllama">pyllama</a> package. Steps involved in doing so are</p>
+<ol>
+<li>
+<p>Fork, the repository, and <code>git clone</code> it to your system.</p>
+</li>
+<li>
+<p>then install the pyllama package with <code>pip install pyllama -U</code></p>
+</li>
+<li>
+<p>To download the 7B model use <code>python -m llama.download --model_size 7B</code></p>
+<p>Here I faced an issue where the download would stop after a few minutes and had to be started again manually. (can be checked using <code>htop</code>) . If you face this issue as well then use this shell script . Credits to this <a href="https://github.com/juncongmoo/pyllama/issues/104#issuecomment-1588856820">comment</a> on this <a href="https://github.com/juncongmoo/pyllama/issues/104">issue</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#960050;background-color:#1e0010">#</span> Function <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">handle</span> <span style="color:#a6e22e">stopping</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">script</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">stop_script</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">echo</span> <span style="color:#e6db74">&#34;Stopping the script.&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">exit</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Register</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">signal</span> <span style="color:#a6e22e">handler</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">trap</span> <span style="color:#a6e22e">stop_script</span> <span style="color:#a6e22e">SIGINT</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">true</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Run</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">command</span> <span style="color:#66d9ef">with</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">timeout</span> <span style="color:#66d9ef">of</span> <span style="color:#ae81ff">200</span> <span style="color:#a6e22e">seconds</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">timeout</span> <span style="color:#ae81ff">200</span>  <span style="color:#a6e22e">python</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">m</span> <span style="color:#a6e22e">llama</span>.<span style="color:#a6e22e">download</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">model_size</span> <span style="color:#a6e22e">$1</span> <span style="color:#f92672">--</span><span style="color:#a6e22e">folder</span> <span style="color:#a6e22e">model</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">echo</span> <span style="color:#e6db74">&#34;restart download&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">sleep</span> <span style="color:#ae81ff">1</span>  <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Wait</span> <span style="color:#66d9ef">for</span> <span style="color:#ae81ff">1</span> <span style="color:#a6e22e">second</span> <span style="color:#a6e22e">before</span> <span style="color:#a6e22e">starting</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">next</span> <span style="color:#a6e22e">iteration</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">Wait</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">any</span> <span style="color:#a6e22e">key</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">be</span> <span style="color:#a6e22e">pressed</span> <span style="color:#a6e22e">within</span> <span style="color:#a6e22e">a</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">-</span><span style="color:#a6e22e">second</span> <span style="color:#a6e22e">timeout</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">read</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">t</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">n</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">s</span> <span style="color:#a6e22e">key</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> [[ <span style="color:#a6e22e">$key</span> ]]; <span style="color:#a6e22e">then</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">stop_script</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">done</span>
+</span></span></code></pre></div><p>And using the script with <code>bash llama_download.sh 7B</code></p>
+</li>
+<li>
+<p>After successful download the directory will have the following structure</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/82e3f3e8-e0c9-4be3-bb29-6c73a5112182/Untitled.png" alt="Note that the size of this folder is 13 GB !!!"></p>
+<p>Note that the size of this folder is <strong>13 GB</strong> !!!</p>
+<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/036d78e1-a44e-45af-a59b-3e7d22c2ad2f/Untitled.png" alt="This is what the logs of a Successulf download will look like!"></p>
+<p>This is what the logs of a Successulf download will look like!</p>
+</li>
+<li>
+<p>Another method is to use the bittorrent link given in the readme of the pyllama repository.</p>
+</li>
+</ol>
+<h2 id="other-important-resources">Other important resources</h2>
+<p><a href="https://chat.openai.com/share/819738b5-1c35-4e1d-9fb8-31c77f09b947">chat gpt support</a></p>
+<p><a href="https://github.com/facebookresearch/llama/issues/149">https://github.com/facebookresearch/llama/issues/149</a></p>
+<p><a href="https://github.com/Lightning-AI/lit-llama/blob/main/howto/download_weights.md">https://github.com/Lightning-AI/lit-llama/blob/main/howto/download_weights.md</a></p>
+<p><a href="https://github.com/karpathy/nanoGPT">https://github.com/karpathy/nanoGPT</a></p>
+<p><a href="https://github.com/lightning-AI/lit-llama">https://github.com/lightning-AI/lit-llama</a></p>
+<p><a href="https://github.com/Lightning-AI/lit-parrot">https://github.com/Lightning-AI/lit-parrot</a></p>
+<h1 id="code-deep-dive">Code deep dive</h1>
+<p>In the official Code repository of LLama, the first thing that I noticed was that there were only 3 important code files. (This is obviously because they havent included the training code)</p>
+<ol>
+<li><strong>llama/generation.py</strong> : This file has a class which creates the pipeline for prompting (running inference) the model. This includes, sampling the top logits, custom stop function, pre and post processing of the input and output. [<a href="https://github.com/facebookresearch/llama/blob/main/llama/generation.py">code</a>]</li>
+<li><strong>llama/tokenizer.py</strong> : Wraps the entencepeice tokenizer in a new class. [<a href="https://github.com/facebookresearch/llama/blob/main/llama/tokenizer.py">code</a>]</li>
+<li><strong>llama/model.py</strong> : Holds the code for the transformer models [<a href="https://github.com/facebookresearch/llama/blob/main/llama/model.py">code</a>]</li>
+</ol>
+<p>Lets start with the code for the Tokenizer</p>
+<h2 id="tokenizer">Tokenizer</h2>
+<p>The job of the tokenizer is to assign an a numeric id to natural text. Which means after “tokenizing” this prompt - &ldquo;I believe the meaning of life is” it will give us a tensor which looks like</p>
+<p><code>[[1, 306, 4658, 278, 6593, 310, 2834, 338]]</code> . The tokenizer is responsible for both encoding and decoding(coverting numeric id’s) back to natural text.</p>
+<p>As mentioned in the paper, they have used <a href="https://github.com/google/sentencepiece">sentencepeice’s</a> (Google’s brainchild) implementation of the <strong>Byte-Pair Encoding subword tokenization</strong> algorithm, which means instead of encoding entire words they break it down into smaller syllabus. For example “Tokenizer” may be broken down into “token” and    “-izer” . In this way their vocabulary size is of 32,000 words. Similarly the entire coprus of text data consists of 1.4 Trillion tokens</p>
+<blockquote>
+<p>We tokenize the data with the byte- pair encoding (BPE) algorithm (<a href="https://arxiv.org/abs/1508.07909">Sennrich et al., 2015</a>), using the implementation from Sentence- Piece (<a href="https://arxiv.org/abs/1808.06226">Kudo and Richardson, 2018</a>). Notably, we split all numbers into individual digits, and fallback to bytes to decompose unknown UTF-8 characters</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">sentencepiece</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SentencePieceProcessor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">logging</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">getLogger</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">typing</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">List</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">os</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logger</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getLogger</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tokenizer</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">__init__</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">model_path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">str</span>)<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">reload</span> <span style="color:#a6e22e">tokenizer</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">isfile</span>(<span style="color:#a6e22e">model_path</span>), <span style="color:#a6e22e">model_path</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SentencePieceProcessor</span>(<span style="color:#a6e22e">model_file</span><span style="color:#f92672">=</span><span style="color:#a6e22e">model_path</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">info</span>(<span style="color:#a6e22e">f</span><span style="color:#e6db74">&#34;Reloaded SentencePiece model from {model_path}&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">BOS</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">EOS</span> <span style="color:#a6e22e">token</span> <span style="color:#a6e22e">IDs</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">n_words</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">vocab_size</span>() <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#ae81ff">32</span>,<span style="color:#ae81ff">000</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">bos_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">bos_id</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">eos_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">eos_id</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">pad_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">pad_id</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">info</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">f</span><span style="color:#e6db74">&#34;#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}&#34;</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">vocab_size</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">get_piece_size</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">bos</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bool</span>, <span style="color:#a6e22e">eos</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bool</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">List</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">type</span>(<span style="color:#a6e22e">s</span>) <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">str</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bos</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">bos_id</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">t</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">eos</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">+</span> [<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">eos_id</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">decode</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">t</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">List</span>[<span style="color:#66d9ef">int</span>]) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">str</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">decode</span>(<span style="color:#a6e22e">t</span>)
+</span></span></code></pre></div><p>The Tokenizer class isn’t all that complicated. The parameter <code>model_path</code> holds the path to the <code>tokenizer.model</code> file which was downloaded along with the model weights.</p>
+<p>In the given code, BOS (Beginning of Sentence), EOS (End of Sentence), and Pad IDs (Padding IDs) have the following significance:</p>
+<ol>
+<li>BOS ID: The BOS ID represents the token ID for the &ldquo;Beginning of Sentence&rdquo; token. It is used to indicate the start of a sentence or sequence. In the code, the <strong><code>encode</code></strong> function checks if the <strong><code>bos</code></strong> flag is True. If it is, the BOS ID is added at the beginning of the tokenized sequence.</li>
+<li>EOS ID: The EOS ID represents the token ID for the &ldquo;End of Sentence&rdquo; token. It is used to indicate the end of a sentence or sequence. In the code, the <strong><code>encode</code></strong> function checks if the <strong><code>eos</code></strong> flag is True. If it is, the EOS ID is added at the end of the tokenized sequence.</li>
+<li>Pad ID: The Pad ID represents the token ID for the &ldquo;Padding&rdquo; token. Padding is often used to make all sequences in a batch have the same length. In the code, the Pad ID is retrieved from the SentencePiece model using <strong><code>self.sp_model.pad_id()</code></strong>. It is typically used during batching and padding sequences to ensure uniform dimensions.</li>
+</ol>
+<p>The BOS and EOS IDs help in marking the boundaries of sentences or sequences, which can be useful for various natural language processing tasks such as machine translation, text generation, and language modeling. The Pad ID ensures that sequences are of the same length when batching, which is necessary for efficient computation in deep learning models.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="byte-pair-encoding-algorithm-not-necessary-to-understand-llama">Byte pair encoding algorithm (Not Necessary to understand LLaMA)</h3>
+<ul>
+<li>Personally, this a really smart,simple algorithm!!</li>
+<li>First the entire corpus is divided into indiviudal characters and a counter is attached to each word, which indicates how many times the word has appeared in the corpus. Each character is now already a part of the Final Vocabulary</li>
+<li>Then each word is divided into its characters and the pairwise occurence of each consecutive characters is counted. The most frequently occuring pair is added to the final corpus. In the sea of characters, wherever these 2 characters were occuring is combined into one and the process of counting the occurences of each pair is repeated and the most frequent one is added to the final Vocab.</li>
+<li>Honestly, just watch <a href="https://www.youtube.com/watch?v=HEikzVL-lZU">this</a> video by hugging face if you didnt understand my explaination 😟</li>
+</ul>
+<h2 id="generator">Generator</h2>
+<h2 id="model">Model</h2>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
