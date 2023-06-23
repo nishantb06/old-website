@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>An Overview of LLaMa and Alpaca models &middot; Nishant Bhansali</title>
+  <title>The Annotated LLaMA &middot; Nishant Bhansali</title>
   <meta name="description" content="" />
 
   
@@ -50,10 +50,9 @@
 
     <main class="content container">
     <div class="post">
-  <h1>An Overview of LLaMa and Alpaca models</h1>
+  <h1>The Annotated LLaMA</h1>
   <time datetime=2023-04-15T13:34:45&#43;0530 class="post-date">Sat, Apr 15, 2023</time>
-  <h1 id="the-annotated-llama">The Annotated LLaMA</h1>
-<h1 id="foreword">Foreword</h1>
+  <h1 id="foreword">Foreword</h1>
 <p>Welcome to “<strong>The Annotated LLaMA</strong>”.</p>
 <p>One of the most brilliant and well-explained articles I have read is <a href="https://nlp.seas.harvard.edu/2018/04/03/attention.html">The Annotated Transformer</a> and the <a href="https://amaarora.github.io/posts/2021-07-26-annotateddetr.html">Annotated DETR</a>. It introduced <strong>Attention</strong> like no other post. The simple idea was to present an “annotated” version of the paper <a href="https://arxiv.org/abs/1706.03762">Attention is all you need</a> along with code.</p>
 <p>I have tried to do something similar with the LLaMA models without which the commercial use of many Large Language models would not have been possible.</p>
@@ -83,6 +82,17 @@
 <p>They wanted to train and optimise a set of models for best possible perfomance at fixed Inference budgets, by training on more tokens than what is typically used</p>
 </li>
 </ol>
+<h2 id="llm-scaling-laws">LLM Scaling Law’s</h2>
+<p>Before you dive into training, it’s important to cover how LLMs scale. Understanding scaling lets you effectively balance the size and complexity of your model and the size of the data you’ll use
+to train it.</p>
+<p>Some relevant history here: OpenAI originally introduced “the LLM scaling laws” in 2020. They suggested that increasing model size was more important than scaling data size. This held for about two years before DeepMind suggested almost the polar opposite: that previous models were significantly undertrained and that increasing your foundational training datasets actually
+leads to better performance.</p>
+<p>That changed in 2022. Specifically, DeepMind put forward an alternative approach in their Training Compute-Optimal Large Language Models paper. They found that <strong>current LLMs
+are actually significantly undertrained</strong>. Put simply: these large models weren’t trained on nearly enough data.</p>
+<p>Deepmind showcased this with a model called Chinchilla, which is a fourth the size of the Gopher model above but trained on 4.6x more data. At that reduced size but with far more training
+data, Chinchilla outperformed Gopher and other LLMs.</p>
+<p>DeepMind claims that <em><em>the model size and the number of training tokens</em> should instead increase at roughly the same rate to achieve optimal performance.</em>* If you get a 10x increase
+in compute, you should make your model 3.1x times bigger and the data you train over 3.1x bigger; if you get a 100x increase in compute, you should make your model 10x bigger and your data 10x bigger.</p>
 <h1 id="datasets-used">Datasets Used</h1>
 <p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cae1a4ba-4a8c-4d13-96e8-4e50f828a81b/Untitled.png" alt="Untitled"></p>
 <p>These datasets were used for Pretraining of the model, Note that Wikipedia and Books dataset were used in approximately 2 epochs, while other dataset had only 1 epochs. Overall this datasets is of 4.3 TB!!</p>
@@ -142,6 +152,22 @@
 <p>Another method is to use the bittorrent link given in the readme of the pyllama repository.</p>
 </li>
 </ol>
+<p>Size of the 7B model is 13GB (Unquantized). and running <code>nvidia-smi</code> told me that GPU memory usage is 13266MiB. Which is roughly 13.3 GB</p>
+<ul>
+<li>
+<p>chatgpt response to “<strong>My GPU memory usage is 13266MiB. How tointerpret this”</strong></p>
+<p>The GPU memory usage of 13266MiB indicates that a portion of the memory on your graphics processing unit (GPU) is currently in use. Here&rsquo;s how you can interpret this information:</p>
+<ol>
+<li>GPU Memory: GPUs have their own dedicated memory (VRAM) that is used to store data for processing graphics-related tasks. This memory is separate from the system memory (RAM) used by your computer&rsquo;s CPU. The GPU memory usage refers to the amount of VRAM being utilized at a given time.</li>
+<li>Unit of Measurement: &ldquo;MiB&rdquo; stands for mebibyte, which is a binary multiple of a megabyte. It is often used in reference to memory sizes. One mebibyte is equal to 1,048,576 bytes.</li>
+<li>Memory Usage: In your case, the GPU memory usage is 13266MiB, which means that approximately 13,266 mebibytes or roughly 13.3 gigabytes (GB) of the GPU&rsquo;s memory is currently in use.</li>
+<li>Implications: The GPU memory usage indicates the amount of memory that your GPU is actively utilizing to store data for ongoing graphics-related operations. It could include textures, shaders, buffers, or other resources needed for rendering images, running computations, or performing other GPU-accelerated tasks.</li>
+<li>Considerations: The amount of GPU memory usage can vary depending on the applications or processes running on your system. Graphics-intensive tasks such as gaming, video editing, 3D rendering, or machine learning can consume a significant amount of GPU memory. Monitoring GPU memory usage can help you understand how much memory your applications or workloads require and whether you are approaching the limits of your GPU&rsquo;s available memory.</li>
+<li>Limits and Optimization: GPUs have a maximum memory capacity, and if the memory usage exceeds this limit, it can lead to performance issues or even crashes. It&rsquo;s important to ensure that your GPU has enough available memory for the tasks you want to perform. If you encounter limitations due to memory constraints, you may need to optimize your application, reduce the resolution of textures, or consider upgrading to a GPU with higher memory capacity.</li>
+</ol>
+<p>Overall, the GPU memory usage of 13266MiB indicates that a significant portion of your GPU&rsquo;s memory is currently being utilized by active processes or applications.</p>
+</li>
+</ul>
 <h2 id="other-important-resources">Other important resources</h2>
 <p><a href="https://chat.openai.com/share/819738b5-1c35-4e1d-9fb8-31c77f09b947">chat gpt support</a></p>
 <p><a href="https://github.com/facebookresearch/llama/issues/149">https://github.com/facebookresearch/llama/issues/149</a></p>
@@ -149,6 +175,7 @@
 <p><a href="https://github.com/karpathy/nanoGPT">https://github.com/karpathy/nanoGPT</a></p>
 <p><a href="https://github.com/lightning-AI/lit-llama">https://github.com/lightning-AI/lit-llama</a></p>
 <p><a href="https://github.com/Lightning-AI/lit-parrot">https://github.com/Lightning-AI/lit-parrot</a></p>
+<p><a href="https://transformer-circuits.pub/2021/framework/index.html">https://transformer-circuits.pub/2021/framework/index.html</a></p>
 <h1 id="code-deep-dive">Code deep dive</h1>
 <p>In the official Code repository of LLama, the first thing that I noticed was that there were only 3 important code files. (This is obviously because they havent included the training code)</p>
 <ol>
@@ -157,47 +184,47 @@
 <li><strong>llama/model.py</strong> : Holds the code for the transformer models [<a href="https://github.com/facebookresearch/llama/blob/main/llama/model.py">code</a>]</li>
 </ol>
 <p>Lets start with the code for the Tokenizer</p>
-<h2 id="tokenizer">Tokenizer</h2>
+<h1 id="tokenizer">Tokenizer</h1>
 <p>The job of the tokenizer is to assign an a numeric id to natural text. Which means after “tokenizing” this prompt - &ldquo;I believe the meaning of life is” it will give us a tensor which looks like</p>
-<p><code>[[1, 306, 4658, 278, 6593, 310, 2834, 338]]</code> . The tokenizer is responsible for both encoding and decoding(coverting numeric id’s) back to natural text.</p>
+<p><code>[[1, 306, 4658, 278, 6593, 310, 2834, 338]]</code> . The tokenizer is responsible for both encoding and decoding(coverting numeric id’s) back to natural text. Also keep in mind that there is a tradoff between vocab size and the sequence length for a an input. What we want is a small enough vocab size which is representative of the entire corpus but also keeps the sequence length small. A large sequence lenght would mean more memory of the GPU consumed by the input!</p>
 <p>As mentioned in the paper, they have used <a href="https://github.com/google/sentencepiece">sentencepeice’s</a> (Google’s brainchild) implementation of the <strong>Byte-Pair Encoding subword tokenization</strong> algorithm, which means instead of encoding entire words they break it down into smaller syllabus. For example “Tokenizer” may be broken down into “token” and    “-izer” . In this way their vocabulary size is of 32,000 words. Similarly the entire coprus of text data consists of 1.4 Trillion tokens</p>
 <blockquote>
 <p>We tokenize the data with the byte- pair encoding (BPE) algorithm (<a href="https://arxiv.org/abs/1508.07909">Sennrich et al., 2015</a>), using the implementation from Sentence- Piece (<a href="https://arxiv.org/abs/1808.06226">Kudo and Richardson, 2018</a>). Notably, we split all numbers into individual digits, and fallback to bytes to decompose unknown UTF-8 characters</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">sentencepiece</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">SentencePieceProcessor</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">logging</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">getLogger</span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">from</span> <span style="color:#a6e22e">typing</span> <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">List</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">os</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> sentencepiece <span style="color:#f92672">import</span> SentencePieceProcessor
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> logging <span style="color:#f92672">import</span> getLogger
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> List
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logger</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getLogger</span>()
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tokenizer</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">__init__</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">model_path</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">str</span>)<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">reload</span> <span style="color:#a6e22e">tokenizer</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">isfile</span>(<span style="color:#a6e22e">model_path</span>), <span style="color:#a6e22e">model_path</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">SentencePieceProcessor</span>(<span style="color:#a6e22e">model_file</span><span style="color:#f92672">=</span><span style="color:#a6e22e">model_path</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">info</span>(<span style="color:#a6e22e">f</span><span style="color:#e6db74">&#34;Reloaded SentencePiece model from {model_path}&#34;</span>)
+</span></span><span style="display:flex;"><span>logger <span style="color:#f92672">=</span> getLogger()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Tokenizer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, model_path: str):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># reload tokenizer</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>isfile(model_path), model_path
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sp_model <span style="color:#f92672">=</span> SentencePieceProcessor(model_file<span style="color:#f92672">=</span>model_path)
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>info(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Reloaded SentencePiece model from </span><span style="color:#e6db74">{</span>model_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#a6e22e">BOS</span> <span style="color:#f92672">/</span> <span style="color:#a6e22e">EOS</span> <span style="color:#a6e22e">token</span> <span style="color:#a6e22e">IDs</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">n_words</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">vocab_size</span>() <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#ae81ff">32</span>,<span style="color:#ae81ff">000</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">bos_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">bos_id</span>()
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">eos_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">eos_id</span>()
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">pad_id</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">pad_id</span>()
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">info</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">f</span><span style="color:#e6db74">&#34;#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># BOS / EOS token IDs</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n_words: int <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>vocab_size() <span style="color:#75715e"># 32,000</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bos_id: int <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>bos_id()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>eos_id: int <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>eos_id()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>pad_id: int <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>pad_id()
+</span></span><span style="display:flex;"><span>        logger<span style="color:#f92672">.</span>info(
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;#words: </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>n_words<span style="color:#e6db74">}</span><span style="color:#e6db74"> - BOS ID: </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>bos_id<span style="color:#e6db74">}</span><span style="color:#e6db74"> - EOS ID: </span><span style="color:#e6db74">{</span>self<span style="color:#f92672">.</span>eos_id<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
 </span></span><span style="display:flex;"><span>        )
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">vocab_size</span>() <span style="color:#f92672">==</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">get_piece_size</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>vocab_size() <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>get_piece_size()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">s</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">str</span>, <span style="color:#a6e22e">bos</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bool</span>, <span style="color:#a6e22e">eos</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bool</span>) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">List</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">assert</span> <span style="color:#a6e22e">type</span>(<span style="color:#a6e22e">s</span>) <span style="color:#a6e22e">is</span> <span style="color:#a6e22e">str</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">encode</span>(<span style="color:#a6e22e">s</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">bos</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">bos_id</span>] <span style="color:#f92672">+</span> <span style="color:#a6e22e">t</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">eos</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">t</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span> <span style="color:#f92672">+</span> [<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">eos_id</span>]
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(self, s: str, bos: bool, eos: bool) <span style="color:#f92672">-&gt;</span> List[int]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> type(s) <span style="color:#f92672">is</span> str
+</span></span><span style="display:flex;"><span>        t <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>encode(s)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> bos:
+</span></span><span style="display:flex;"><span>            t <span style="color:#f92672">=</span> [self<span style="color:#f92672">.</span>bos_id] <span style="color:#f92672">+</span> t
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> eos:
+</span></span><span style="display:flex;"><span>            t <span style="color:#f92672">=</span> t <span style="color:#f92672">+</span> [self<span style="color:#f92672">.</span>eos_id]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> t
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">def</span> <span style="color:#a6e22e">decode</span>(<span style="color:#a6e22e">self</span>, <span style="color:#a6e22e">t</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">List</span>[<span style="color:#66d9ef">int</span>]) <span style="color:#f92672">-&gt;</span> <span style="color:#a6e22e">str</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">sp_model</span>.<span style="color:#a6e22e">decode</span>(<span style="color:#a6e22e">t</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(self, t: List[int]) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>sp_model<span style="color:#f92672">.</span>decode(t)
 </span></span></code></pre></div><p>The Tokenizer class isn’t all that complicated. The parameter <code>model_path</code> holds the path to the <code>tokenizer.model</code> file which was downloaded along with the model weights.</p>
 <p>In the given code, BOS (Beginning of Sentence), EOS (End of Sentence), and Pad IDs (Padding IDs) have the following significance:</p>
 <ol>
@@ -215,8 +242,372 @@
 <li>Then each word is divided into its characters and the pairwise occurence of each consecutive characters is counted. The most frequently occuring pair is added to the final corpus. In the sea of characters, wherever these 2 characters were occuring is combined into one and the process of counting the occurences of each pair is repeated and the most frequent one is added to the final Vocab.</li>
 <li>Honestly, just watch <a href="https://www.youtube.com/watch?v=HEikzVL-lZU">this</a> video by hugging face if you didnt understand my explaination 😟</li>
 </ul>
-<h2 id="generator">Generator</h2>
-<h2 id="model">Model</h2>
+<h1 id="model">Model</h1>
+<p>Before we dive deeper into the architecure and the working of the LLaMA transformer model,It is important to know what the model args for the 7B parameter look like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>ModelArgs(
+</span></span><span style="display:flex;"><span>	dim<span style="color:#f92672">=</span><span style="color:#ae81ff">4096</span>, <span style="color:#75715e"># An internal dimension for the transformer architecture</span>
+</span></span><span style="display:flex;"><span>	n_layers<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>, <span style="color:#75715e"># Number of transformer blocks</span>
+</span></span><span style="display:flex;"><span>	n_heads<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>, <span style="color:#75715e"># Number of heads</span>
+</span></span><span style="display:flex;"><span>	vocab_size<span style="color:#f92672">=</span><span style="color:#ae81ff">32000</span>, <span style="color:#75715e"># Vocab size of the tokenizer</span>
+</span></span><span style="display:flex;"><span>	multiple_of<span style="color:#f92672">=</span><span style="color:#ae81ff">256</span>, <span style="color:#75715e"># A param used in calculating the positional embeddings</span>
+</span></span><span style="display:flex;"><span>	norm_eps<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-06</span>, <span style="color:#75715e"># eps value used when dividing by zero during Normalisation</span>
+</span></span><span style="display:flex;"><span>	max_batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Max batch size during inferencing</span>
+</span></span><span style="display:flex;"><span>	max_seq_len<span style="color:#f92672">=</span><span style="color:#ae81ff">1024</span>, <span style="color:#75715e"># input to the transformer model can be this long only</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>In the code these params are stored in the <code>params.json</code> file, that was downloaded along with the checkpoint path</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>max_seq_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>
+</span></span><span style="display:flex;"><span>max_batch_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(Path(ckpt_dir) <span style="color:#f92672">/</span> <span style="color:#e6db74">&#34;params.json&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>        params <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(f<span style="color:#f92672">.</span>read())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create a model args object</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ModelArgs is a a simple dataclass that contains the parameters for the model</span>
+</span></span><span style="display:flex;"><span>model_args: ModelArgs <span style="color:#f92672">=</span> ModelArgs(
+</span></span><span style="display:flex;"><span>    max_seq_len<span style="color:#f92672">=</span>max_seq_len, max_batch_size<span style="color:#f92672">=</span>max_batch_size, <span style="color:#f92672">**</span>params
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>model_args<span style="color:#f92672">.</span>vocab_size <span style="color:#f92672">=</span> tokenizer<span style="color:#f92672">.</span>n_words
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># model is loaded through the checkpoint by </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ckpt_dir is the path to the `7B` directory in the folder downloaded from the llama.download filea</span>
+</span></span><span style="display:flex;"><span>checkpoints <span style="color:#f92672">=</span> sorted(Path(ckpt_dir)<span style="color:#f92672">.</span>glob(<span style="color:#e6db74">&#34;*.pth&#34;</span>))
+</span></span><span style="display:flex;"><span>ckpt_path <span style="color:#f92672">=</span> checkpoints[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>checkpoint <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>load(ckpt_path, map_location<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;cpu&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> Transformer(model_args)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>load_state_dict(checkpoint, strict<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>)
+</span></span></code></pre></div><p>After the model is loaded you can count the parameters by</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># count number of parameters in model</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_parameters</span>(model):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum(p<span style="color:#f92672">.</span>numel() <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>parameters() <span style="color:#66d9ef">if</span> p<span style="color:#f92672">.</span>requires_grad)
+</span></span><span style="display:flex;"><span>count_parameters(model)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 6_738_415_616 (6.7 Billion)</span>
+</span></span></code></pre></div><p>Now, We can see that in the <a href="https://github.com/facebookresearch/llama/blob/main/llama/model.py">llama/model.py</a> file, there are 5 Classes →</p>
+<ol>
+<li><a href="https://github.com/facebookresearch/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py#LL33C7-L33C14">RMSNorm()</a> : Defines the Normalisation technique used in the model</li>
+<li><a href="https://github.com/facebookresearch/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py#L76">Attention()</a> : Has the code for the MultiHead Self Attention Module</li>
+<li><a href="https://github.com/facebookresearch/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py#L153">FeedForward ()</a> : Has the code for the MLP attached after each attention layer</li>
+<li><a href="https://github.com/facebookresearch/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py#L178">TransformerBlock()</a> : Defines one transformer Block, there are total 32 of these in the architecture</li>
+<li><a href="https://github.com/facebookresearch/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py#L198">Transformer()</a> : Has the embedding layer and code for instantiating the TransformerBlocks</li>
+</ol>
+<p>We’ll go over each of these in detail</p>
+<h2 id="transformer">Transformer()</h2>
+<p>There are several variants of transformer language models. LLaMA is an <strong>autoregressive, decoder-only transformer</strong> language models, such as GPT-3. Auto regressive because this model predicts future values of a variable based on its own past values (A term taken from time series analysis). Decoder and Encoder are two parts of the transformer architecture. Encoder is used for building a good understanding of the data, whereas decoder is used for more supervised task like, next token prediction, which is what the LLaMA model does. It is one big model that predicts the next token based on the prompt (context) that we give it.</p>
+<p>This encoder starts with an Embedding Layer followed by Multiple residual blocks of Multi Head Self Attention and Feed Forward layers. Each residual block consists of an attention layer, followed by an MLP layer. Both the attention and MLP layers each “read” their input from the residual stream (by performing a linear projection), and then “write” their result to the residual stream by adding a linear projection back in. Each attention layer consists of multiple heads, which operate in parallel. RMS Normalisation technique is used before any attention layer or feed forward layer.</p>
+<ul>
+<li>
+<p>Complete Code for Transformer()</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Transformer</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, params: ModelArgs):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>params <span style="color:#f92672">=</span> params <span style="color:#75715e"># ModelArgs</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>vocab_size <span style="color:#f92672">=</span> params<span style="color:#f92672">.</span>vocab_size <span style="color:#75715e"># 32_000</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n_layers <span style="color:#f92672">=</span> params<span style="color:#f92672">.</span>n_layers <span style="color:#75715e"># 32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tok_embeddings <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Embedding(params<span style="color:#f92672">.</span>vocab_size, params<span style="color:#f92672">.</span>dim) <span style="color:#75715e"># (32_000, 4096)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layers <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>ModuleList()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> layer_id <span style="color:#f92672">in</span> range(params<span style="color:#f92672">.</span>n_layers):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>append(TransformerBlock(layer_id, params))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>norm <span style="color:#f92672">=</span> RMSNorm(params<span style="color:#f92672">.</span>dim, eps<span style="color:#f92672">=</span>params<span style="color:#f92672">.</span>norm_eps) <span style="color:#75715e"># shape of output is same as input</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>output <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(params<span style="color:#f92672">.</span>dim, params<span style="color:#f92672">.</span>vocab_size, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#75715e"># (4096, 32_000)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>freqs_cis <span style="color:#f92672">=</span> precompute_freqs_cis(
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>params<span style="color:#f92672">.</span>dim <span style="color:#f92672">//</span> self<span style="color:#f92672">.</span>params<span style="color:#f92672">.</span>n_heads, self<span style="color:#f92672">.</span>params<span style="color:#f92672">.</span>max_seq_len <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 4096 // 32 = 128, 1024 * 2</span>
+</span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># torch.Size([2048, 64])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@torch</span><span style="color:#f92672">.</span>inference_mode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, tokens: torch<span style="color:#f92672">.</span>Tensor, start_pos: int):
+</span></span><span style="display:flex;"><span>        _bsz, seqlen <span style="color:#f92672">=</span> tokens<span style="color:#f92672">.</span>shape <span style="color:#75715e"># (1,8)</span>
+</span></span><span style="display:flex;"><span>        h <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tok_embeddings(tokens) <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>freqs_cis <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>freqs_cis<span style="color:#f92672">.</span>to(h<span style="color:#f92672">.</span>device)
+</span></span><span style="display:flex;"><span>        freqs_cis <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>freqs_cis[start_pos : start_pos <span style="color:#f92672">+</span> seqlen] <span style="color:#75715e"># torch.Size([1024, 64])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        mask <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> seqlen <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            mask <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>full(
+</span></span><span style="display:flex;"><span>                (<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, seqlen, seqlen), float(<span style="color:#e6db74">&#34;-inf&#34;</span>), device<span style="color:#f92672">=</span>tokens<span style="color:#f92672">.</span>device
+</span></span><span style="display:flex;"><span>            ) <span style="color:#75715e"># (1,1,8,8) , filled with -inf</span>
+</span></span><span style="display:flex;"><span>            mask <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>triu(mask, diagonal<span style="color:#f92672">=</span>start_pos <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>type_as(h)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># (1,1,8,8) , filled with -inf, but only the upper triangle, lower triangle is 0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># diagnol = start_pos + 1, so the first 8 tokens are not masked, it basically pushes the diagonola above</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> layer <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>layers:
+</span></span><span style="display:flex;"><span>            h <span style="color:#f92672">=</span> layer(h, start_pos, freqs_cis, mask)
+</span></span><span style="display:flex;"><span>        h <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>norm(h) <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>output(h[:, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, :])  <span style="color:#75715e"># only compute last logits # (1, 4096) * (4096, 32_000) = (1, 32_000)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> output<span style="color:#f92672">.</span>float() <span style="color:#75715e"># (1, 32_000)</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>The input to the transformer forward() function will always be a 2D tensor (batch-size,seq_len), in our case (1,8) . The batch size will always be fixed (1 for inferencing). For simplicity, lets take the batch size as 1 from here on. Seq-length will always keep on varying depending on the prompt, but after passing the prompt throught the transformer once, we only need to give it the next token predicted until the EOS token is predicted. So after the first iteration sequence length will always be 1. For now lets take the <code>seq_length</code> to be 1</p>
+<p>The Emebdding layer ( self.tok_embeddings )is simply responsible for selecting the embeddings based on the indices passed as input to it. Therefore its size will always be (batch_size,seq_length,params.dim).  In our case, the output of the embedding layer becomes <code>(1,8,4096)</code> Note that the internal dimension used for 7B model is 4096.</p>
+<p>Lets look at the positional Embeddings used in this LLaMA architecture now.</p>
+<h3 id="rotary-positional-embeddings">Rotary Positional Embeddings</h3>
+<p><code>self.freq_cis</code> is a tensor (fixed and not a trainable parameter) given by the <code>precompute_freq_cis</code> function. Instead of using absolute or trainable positional encodings, LLaMA uses Rotary positional encodings, which are know to have faster convergence and better results on various sequence modelling tasks.</p>
+<p>Rotary encoding transforms pairs of features by rotating in the 2D plane. That is, it organizes the <em>d</em> features as 2<em>d</em> pairs. Each pair can be considered a coordinate in a 2D plane, and the encoding will rotate it by an angle depending on the position of the token.</p>
+<p>For now its enough to understand that the function returns a 2D tensor of shape (2048,64) or (2*max_seq_length , params.dim // n_heads), where each element is of the form $\cos(\theta) + i \sin(\theta)$ . Here $\theta$ is given by $m/ \theta^{2n/128}$ . $m \epsilon [0,2047] , n \epsilon [0,63]$</p>
+<ul>
+<li>
+<p>Code for generating positional embeddings</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">precompute_freqs_cis</span>(dim: int, end: int, theta: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000.0</span>):
+</span></span><span style="display:flex;"><span>    freqs <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (theta <span style="color:#f92672">**</span> (torch<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, dim, <span style="color:#ae81ff">2</span>)[: (dim <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>)]<span style="color:#f92672">.</span>float() <span style="color:#f92672">/</span> dim))
+</span></span><span style="display:flex;"><span>    t <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>arange(end, device<span style="color:#f92672">=</span>freqs<span style="color:#f92672">.</span>device)  <span style="color:#75715e"># type: ignore</span>
+</span></span><span style="display:flex;"><span>    freqs <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>outer(t, freqs)<span style="color:#f92672">.</span>float()  <span style="color:#75715e"># type: ignore</span>
+</span></span><span style="display:flex;"><span>    freqs_cis <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>polar(torch<span style="color:#f92672">.</span>ones_like(freqs), freqs)  <span style="color:#75715e"># complex64</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> freqs_cis
+</span></span></code></pre></div></li>
+<li>
+<p>Here is a chatGPT generated response to what the <code>precompute_freq_cis()</code> does step by step</p>
+<p>The function <strong><code>precompute_freqs_cis</code></strong> is used to precompute frequency sinusoids (<strong><code>freqs_cis</code></strong>) that are later used in the transformer architecture. These sinusoids play a role in applying rotational embeddings to the query and key representations, which is a technique used to introduce positional information to the transformer model. Let&rsquo;s break down the function step by step:</p>
+<ol>
+<li><strong><code>freqs = 1.0 / (theta ** (torch.arange(0, dim, 2)[: (dim // 2)].float() / dim))</code></strong>:
+<ul>
+<li><strong><code>torch.arange(0, dim, 2)[: (dim // 2)]</code></strong> generates a tensor of values <strong><code>[0, 2, 4, ..., dim-2]</code></strong>. It selects only the first <strong><code>dim // 2</code></strong> elements.</li>
+<li><strong><code>torch.arange(0, dim, 2)[: (dim // 2)].float() / dim</code></strong> divides the selected tensor by <strong><code>dim</code></strong> to obtain a range of values between 0 and 1.</li>
+<li><strong><code>(theta ** (torch.arange(0, dim, 2)[: (dim // 2)].float() / dim))</code></strong> raises <strong><code>theta</code></strong> to the power of each element in the range of values, resulting in a tensor of frequency factors.</li>
+<li><strong><code>1.0 / (theta ** (torch.arange(0, dim, 2)[: (dim // 2)].float() / dim))</code></strong> computes the reciprocal of each element in the tensor, resulting in a tensor of frequencies.</li>
+</ul>
+</li>
+<li><strong><code>t = torch.arange(end, device=freqs.device)</code></strong>:
+<ul>
+<li><strong><code>torch.arange(end)</code></strong> generates a tensor with values ranging from 0 to <strong><code>end-1</code></strong>.</li>
+<li><strong><code>device=freqs.device</code></strong> ensures that the generated tensor is placed on the same device as the <strong><code>freqs</code></strong> tensor.</li>
+</ul>
+</li>
+<li><strong><code>freqs = torch.outer(t, freqs).float()</code></strong>:
+<ul>
+<li><strong><code>torch.outer(t, freqs)</code></strong> computes the outer product between <strong><code>t</code></strong> and <strong><code>freqs</code></strong>, resulting in a 2D tensor where each element is the product of corresponding elements from <strong><code>t</code></strong> and <strong><code>freqs</code></strong>.</li>
+<li><strong><code>freqs = torch.outer(t, freqs).float()</code></strong> converts the resulting tensor to the <strong><code>float</code></strong> data type.</li>
+</ul>
+</li>
+<li><strong><code>freqs_cis = torch.polar(torch.ones_like(freqs), freqs)</code></strong>:
+<ul>
+<li><strong><code>torch.ones_like(freqs)</code></strong> creates a tensor with the same shape as <strong><code>freqs</code></strong> and fills it with ones.</li>
+<li><strong><code>torch.polar(torch.ones_like(freqs), freqs)</code></strong> converts the ones tensor and <strong><code>freqs</code></strong> tensor to polar coordinates, resulting in a complex tensor <strong><code>freqs_cis</code></strong> where the magnitude is 1 and the phase is determined by the corresponding values in <strong><code>freqs</code></strong>.</li>
+</ul>
+</li>
+<li><strong><code>return freqs_cis</code></strong>: The function returns the computed frequency sinusoids <strong><code>freqs_cis</code></strong> as the final output.</li>
+</ol>
+<p>Overall, the <strong><code>precompute_freqs_cis</code></strong> function is used to generate frequency sinusoids that are used in the transformer architecture to introduce positional information through rotational embeddings. These embeddings play a crucial role in capturing the relative positions of tokens within the input sequences, allowing the transformer to handle sequential data effectively.</p>
+</li>
+</ul>
+<p>For better understanding refer to this annotated blog on <a href="https://nn.labml.ai/transformers/rope/index.html">Rotaray Positional Embeddings</a> and the <a href="https://arxiv.org/abs/2104.09864">original paper</a>.</p>
+<p>As to how these positional embeddings are used in the attention architecture, we’ll come back to it later.</p>
+<p>mask is used to simply hide the future context. This means that for predicting the next token,the embeddings after the starting_pos should not be “visible” to the previous_tokens
+############</p>
+<p>What is the use of starting pos ######################</p>
+<p>The embeddings for the sequence, along with it’s mask and starting position are fed to the 32 consecutive <code>TransformerBlock()</code> layers.  One thing to note here is that the input and output to the Attention layer  and the feed forward layer are always the same shape. Attention mechanism can be though of as how much more expressive you can make your sequence after each operation. Also Attention and feed forward layer are residual layers, which means that the the input to the attention layer is always added back to the output before they are collectively sent to the next attention layer.</p>
+<p>This is call Residual or Skip Connections and are done so as to allow the gradients to flow back more easily.  [<a href="https://www.youtube.com/watch?v=kCc8FmEb1nY&amp;t=5208s">youtube video of Karpathy</a> explaining this concept]</p>
+<p>After passing the input through all the <code>TransformerBlocks()</code> layers, one final normalisation (RMSNorm) is done before using a Linear layer to predicting the next token for the given input sequence. The Linear layer is of shape <code>(4096,32_000)</code>.</p>
+<p>Only the last logits  <code>h[:, -1, :]</code> to the input sequence is used as. input the the linear layer. With the laws of matrix multiplication we can see that the output of the entire Transformer architecture will always be a tensor of shape <code>(1,32_000)</code> . <code>(1, 4096) * (4096, 32_000) = (1, 32_000)</code>. These logits represent the model&rsquo;s confidence scores for each token being the next token in the sequence.</p>
+<p>The logits produced by the output layer are typically passed through a softmax function to convert them into probabilities. The softmax function normalizes the logits and assigns a probability distribution over the vocabulary. The next token prediction is made by selecting the token with the highest probability as the predicted next token.</p>
+<p>The decision to use only the last logits as input to the output layer is a common practice in many sequence-to-sequence tasks. The intuition behind this is that the last hidden state of the sequence, after undergoing multiple layers of attention and transformation, is expected to contain the most relevant and comprehensive information for generating the final output.</p>
+<p>By selecting the last hidden state, the model effectively focuses on the most recent context and conditions the output generation on the entire input sequence while taking advantage of the context modeling capabilities of the Transformer decoder.</p>
+<p>However, it&rsquo;s important to note that without the full context of the previous hidden states, the model may lose some information that could potentially be useful for certain tasks. Different model architectures or downstream tasks may require different strategies for leveraging the entire sequence of hidden states, and the choice of using only the last logits depends on the specific requirements of the task at hand.</p>
+<p>Now lets dive deeper into the class <code>TransformerBlock()</code></p>
+<h2 id="transformerblock">TransformerBlock()</h2>
+<ul>
+<li>
+<p>Complete Code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TransformerBlock</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, layer_id: int, args: ModelArgs):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>n_heads
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dim <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>dim
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>head_dim <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>dim <span style="color:#f92672">//</span> args<span style="color:#f92672">.</span>n_heads
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>attention <span style="color:#f92672">=</span> Attention(args)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>feed_forward <span style="color:#f92672">=</span> FeedForward(
+</span></span><span style="display:flex;"><span>            dim<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>dim, hidden_dim<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> args<span style="color:#f92672">.</span>dim, multiple_of<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>multiple_of
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 4096, 4 * 4096, 256</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>layer_id <span style="color:#f92672">=</span> layer_id
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>attention_norm <span style="color:#f92672">=</span> RMSNorm(args<span style="color:#f92672">.</span>dim, eps<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>norm_eps)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>ffn_norm <span style="color:#f92672">=</span> RMSNorm(args<span style="color:#f92672">.</span>dim, eps<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>norm_eps)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        x: torch<span style="color:#f92672">.</span>Tensor, <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>        start_pos: int, <span style="color:#75715e"># 0 (initially)</span>
+</span></span><span style="display:flex;"><span>        freqs_cis: torch<span style="color:#f92672">.</span>Tensor, <span style="color:#75715e"># (8, 64)</span>
+</span></span><span style="display:flex;"><span>        mask: Optional[torch<span style="color:#f92672">.</span>Tensor], <span style="color:#75715e"># (1,1,8,8)</span>
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># this is a skip connection</span>
+</span></span><span style="display:flex;"><span>        h <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>attention<span style="color:#f92672">.</span>forward(
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>attention_norm(x), start_pos, freqs_cis, mask
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># (1,8,4096), 0, (1024, 64), (1,1,8,8)</span>
+</span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>        out <span style="color:#f92672">=</span> h <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>feed_forward<span style="color:#f92672">.</span>forward(self<span style="color:#f92672">.</span>ffn_norm(h))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> out <span style="color:#75715e"># (1,8,4096)</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>This class just encapsulates the attention layer and feed forward layer and the code for residual connection can also be seen here <code>(h = x + attention(x))</code>  and <code>out = h + feed_forward(h)</code></p>
+<p>A few things to note here</p>
+<ul>
+<li>Normalisation (<strong>RMSNorm</strong>) is done to the input before it enters either the attention or the feed forward layer. In the original transformer paper, it was done after the layer.</li>
+</ul>
+<h2 id="rmsnorm">RMSNorm()</h2>
+<ul>
+<li>
+<p><strong>Complete Code</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RMSNorm</span>(torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, dim: int, eps: float <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-6</span>):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>eps <span style="color:#f92672">=</span> eps
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>weight <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Parameter(torch<span style="color:#f92672">.</span>ones(dim))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_norm</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> torch<span style="color:#f92672">.</span>rsqrt(x<span style="color:#f92672">.</span>pow(<span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>mean(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, keepdim<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>) <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>eps)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_norm(x<span style="color:#f92672">.</span>float())<span style="color:#f92672">.</span>type_as(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> output <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>weight
+</span></span></code></pre></div></li>
+<li>
+<p>This Class performs the RMS normalization on the input tensor <strong><code>x</code></strong>.</p>
+</li>
+<li>
+<p>It computes the square of <strong><code>x</code></strong> using <strong><code>x.pow(2)</code></strong>, calculates the mean along the last dimension using <strong><code>mean(-1, keepdim=True)</code></strong>, and adds <strong><code>self.eps</code></strong> to the mean value for numerical stability.</p>
+</li>
+<li>
+<p>Then, it applies reciprocal square root (<strong><code>rsqrt</code></strong>) to the sum of the mean and <strong><code>self.eps</code></strong>.</p>
+</li>
+<li>
+<p>Finally, it multiplies <strong><code>x</code></strong> with the reciprocal square root to normalize the input.</p>
+</li>
+<li>
+<p>In short it is dividing the input by its L2 Norm of the last dimension (4096)</p>
+</li>
+<li>
+<p>The normalization is computed using a learnable parameter <strong><code>self.weight</code></strong> and the <strong><code>eps</code></strong> value to ensure numerical stability. The module helps to normalize the input data and can be useful in certain neural network architectures to improve model performance and convergence.</p>
+</li>
+</ul>
+<h2 id="feedforward">FeedForward()</h2>
+<ul>
+<li>
+<p>Complete Code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FeedForward</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        dim: int, <span style="color:#75715e"># 4096</span>
+</span></span><span style="display:flex;"><span>        hidden_dim: int, <span style="color:#75715e"># 4 * 4096 = 16384</span>
+</span></span><span style="display:flex;"><span>        multiple_of: int, <span style="color:#75715e"># 256</span>
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>        hidden_dim <span style="color:#f92672">=</span> int(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> hidden_dim <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e"># 2 * 16384 / 3 = 10922</span>
+</span></span><span style="display:flex;"><span>        hidden_dim <span style="color:#f92672">=</span> multiple_of <span style="color:#f92672">*</span> ((hidden_dim <span style="color:#f92672">+</span> multiple_of <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">//</span> multiple_of) <span style="color:#75715e"># 256 * (10922 + 256 - 1) // 256 = 11177</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>w1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(dim, hidden_dim, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#75715e"># (4096, 11177)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>w2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(hidden_dim, dim, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#75715e"># (11177, 4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>w3 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(dim, hidden_dim, bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>) <span style="color:#75715e"># (4096, 11177)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>w2(F<span style="color:#f92672">.</span>silu(self<span style="color:#f92672">.</span>w1(x)) <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>w3(x)) <span style="color:#75715e"># (1,8,4096)</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>In summary, the <strong><code>FeedForward</code></strong> module applies a series of linear transformations to the input tensor <strong><code>x</code></strong> using three linear layers (<strong><code>self.w1</code></strong>, <strong><code>self.w2</code></strong>, and <strong><code>self.w3</code></strong>) with appropriate dimensions. The intermediate activation function <strong><code>F.silu</code></strong> (<a href="https://pytorch.org/docs/stable/generated/torch.nn.functional.silu.html">Sigmoid Linear unit</a>) is applied element-wise to introduce non-linearity.</p>
+<h2 id="attention">Attention()</h2>
+<ul>
+<li>
+<p>Complete Code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Attention</span>(nn<span style="color:#f92672">.</span>Module):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, args: ModelArgs):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n_local_heads <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">//</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e"># 32 // 1 = 32</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>head_dim <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>dim <span style="color:#f92672">//</span> args<span style="color:#f92672">.</span>n_heads <span style="color:#75715e"># 4096 // 32 = 128</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wq <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>dim,
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>head_dim,
+</span></span><span style="display:flex;"><span>            bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># (4096, 4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wk <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>dim,
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>head_dim,
+</span></span><span style="display:flex;"><span>            bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># (4096, 4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>dim,
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>head_dim,
+</span></span><span style="display:flex;"><span>            bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>        )  <span style="color:#75715e"># (4096, 4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wo <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Linear(
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>n_heads <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>head_dim,
+</span></span><span style="display:flex;"><span>            args<span style="color:#f92672">.</span>dim,
+</span></span><span style="display:flex;"><span>            bias<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>,
+</span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># (4096, 4096)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_k <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(
+</span></span><span style="display:flex;"><span>            (args<span style="color:#f92672">.</span>max_batch_size, args<span style="color:#f92672">.</span>max_seq_len, self<span style="color:#f92672">.</span>n_local_heads, self<span style="color:#f92672">.</span>head_dim)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># (1,1024,32,128)</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_v <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>zeros(
+</span></span><span style="display:flex;"><span>            (args<span style="color:#f92672">.</span>max_batch_size, args<span style="color:#f92672">.</span>max_seq_len, self<span style="color:#f92672">.</span>n_local_heads, self<span style="color:#f92672">.</span>head_dim)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># (1,1024,32,128)</span>
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> hiq<span style="color:#f92672">.</span>get_env_bool(<span style="color:#e6db74">&#34;KV_CAHCHE_IN_GPU&#34;</span>, <span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>cache_k <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_k<span style="color:#f92672">.</span>cuda()
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>cache_v <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_v<span style="color:#f92672">.</span>cuda()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(
+</span></span><span style="display:flex;"><span>        self,
+</span></span><span style="display:flex;"><span>        x: torch<span style="color:#f92672">.</span>Tensor, <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>        start_pos: int, <span style="color:#75715e"># 0 (initially)</span>
+</span></span><span style="display:flex;"><span>        freqs_cis: torch<span style="color:#f92672">.</span>Tensor,  <span style="color:#75715e"># (8, 64)</span>
+</span></span><span style="display:flex;"><span>        mask: Optional[torch<span style="color:#f92672">.</span>Tensor],  <span style="color:#75715e"># (1,1,8,8)</span>
+</span></span><span style="display:flex;"><span>    ):
+</span></span><span style="display:flex;"><span>        bsz, seqlen, _ <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>shape
+</span></span><span style="display:flex;"><span>        xq, xk, xv <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>wq(x), self<span style="color:#f92672">.</span>wk(x), self<span style="color:#f92672">.</span>wv(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># all of shape (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        xq <span style="color:#f92672">=</span> xq<span style="color:#f92672">.</span>view(bsz, seqlen, self<span style="color:#f92672">.</span>n_local_heads, self<span style="color:#f92672">.</span>head_dim) <span style="color:#75715e"># (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>        xk <span style="color:#f92672">=</span> xk<span style="color:#f92672">.</span>view(bsz, seqlen, self<span style="color:#f92672">.</span>n_local_heads, self<span style="color:#f92672">.</span>head_dim) <span style="color:#75715e"># (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>        xv <span style="color:#f92672">=</span> xv<span style="color:#f92672">.</span>view(bsz, seqlen, self<span style="color:#f92672">.</span>n_local_heads, self<span style="color:#f92672">.</span>head_dim) <span style="color:#75715e"># (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        xq, xk <span style="color:#f92672">=</span> apply_rotary_emb(xq, xk, freqs_cis<span style="color:#f92672">=</span>freqs_cis) <span style="color:#75715e"># (1,8,32,128), (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_k <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_k<span style="color:#f92672">.</span>to(xq) <span style="color:#75715e"># (1,1024,32,128) moved to the same device as xq</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_v <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_v<span style="color:#f92672">.</span>to(xq) <span style="color:#75715e"># (1,1024,32,128) moved to the smae device as xq</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_k[:bsz, start_pos : start_pos <span style="color:#f92672">+</span> seqlen] <span style="color:#f92672">=</span> xk <span style="color:#75715e"># (1,1024,32,128)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>cache_v[:bsz, start_pos : start_pos <span style="color:#f92672">+</span> seqlen] <span style="color:#f92672">=</span> xv <span style="color:#75715e"># (1,1024,32,128)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        keys <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_k[:bsz, : start_pos <span style="color:#f92672">+</span> seqlen] <span style="color:#75715e"># (1,start_pos + seqlen,32,128) or (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>        values <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>cache_v[:bsz, : start_pos <span style="color:#f92672">+</span> seqlen] <span style="color:#75715e"># (1,start_pos + seqlen,32,128) or (1,8,32,128)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        xq <span style="color:#f92672">=</span> xq<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># (1,32,8,128)</span>
+</span></span><span style="display:flex;"><span>        keys <span style="color:#f92672">=</span> keys<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># (1,32,8,128)</span>
+</span></span><span style="display:flex;"><span>        values <span style="color:#f92672">=</span> values<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>) <span style="color:#75715e"># (1,32,8,128)</span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>matmul(xq, keys<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>)) <span style="color:#f92672">/</span> math<span style="color:#f92672">.</span>sqrt(self<span style="color:#f92672">.</span>head_dim) <span style="color:#75715e"># (1,32,8,8)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># matrix multiply of (1,32,8,128) and (1,32,128,8) resulting in # (1,32,8,8)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> mask <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            scores <span style="color:#f92672">=</span> scores <span style="color:#f92672">+</span> mask  <span style="color:#75715e"># (bs, n_local_heads, slen, cache_len + slen) # (1,32,8,8)</span>
+</span></span><span style="display:flex;"><span>        scores <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(scores<span style="color:#f92672">.</span>float(), dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>type_as(xq) <span style="color:#75715e"># (1,32,8,1024)</span>
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>matmul(scores, values)  <span style="color:#75715e"># (bs, n_local_heads, slen, head_dim) # (1,32,8,128)</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e"># matrix multiply of (1,32,8,8) and (1,32,8,128) resulting in (1,32,8,128)</span>
+</span></span><span style="display:flex;"><span>        output <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>transpose(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>)<span style="color:#f92672">.</span>contiguous()<span style="color:#f92672">.</span>view(bsz, seqlen, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># (1,8,4096)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>wo(output) <span style="color:#75715e"># (1,8,4096) x (4096,4096) -&gt; (1,8,4096)</span>
+</span></span></code></pre></div></li>
+</ul>
+<h3 id="the-multi-head-self-attention-mechanism">The Multi Head Self Attention mechanism</h3>
+<p>The whole point of the Self Attention operator is to generate a better representation of input sequence, that means the token/embedding a the nth position in the sequence should have condensed the knowledge of the sequence coming before it. One example for this is that the token at the nth position can be the average  or some sort weighted average of all the tokens coming before it.</p>
+<p>In the self attention mechanism, we want to gather information from the past but we want to do it in a data dependent way we first generate a query,key,value from each token. This is done by multiplying each token by 3 separate weight matrices. In this way one token is converted into 3 representations with the help of a linear layer.</p>
+<p>Now we pick one query vector and take the scaled dot product of it with each key vector. We then multiply this scalar with its value vector. All of these value vectors are then added to get the representation of the token for which the query vector was for.</p>
+<p>Can you see how amazing this is!!. I interpret this as the new representation has all of the value vectors weighted as per the relevant information  it contains. It literally chooses what to include  and how much knowledge  to include in itself. Query vector can be though of as what I’m looking for, key vector is what do I contain, value vector is if you find me intersting, here’s what I will communicate to you.</p>
+<p>Multihead attention is just creating <code>n_head</code> different q,k,v vectors and letting them operate in parrallel. Just like using more than one filters in CNN’s, so that different info and context are learnt in each head. Later all the output is concatenated and multiplied with another weight matrix, which is fed as input to the next attention layer.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Other excellent resouces to understand Attention mechanism are</p>
+<ul>
+<li><a href="https://youtu.be/kCc8FmEb1nY">Karpathy’s NanoGPT tutorail</a></li>
+<li><a href="https://nlp.seas.harvard.edu/2018/04/03/attention.html">The annotated transformer</a></li>
+<li><a href="https://transformer-circuits.pub/">In depth transformers</a></li>
+<li><a href="https://jalammar.github.io/illustrated-transformer/">Jay Allamar’s Illustrated Transformer</a></li>
+</ul>
 
 </div>
 

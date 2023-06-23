@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Sat, 15 Apr 2023 13:34:45 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>An Overview of LLaMa and Alpaca models</title>
+      <title>The Annotated LLaMA</title>
       <link>https://nishantb06.github.io/posts/llama_alpaca/</link>
       <pubDate>Sat, 15 Apr 2023 13:34:45 +0530</pubDate>
       
       <guid>https://nishantb06.github.io/posts/llama_alpaca/</guid>
-      <description>The Annotated LLaMA Foreword Welcome to “The Annotated LLaMA”.
+      <description>Foreword Welcome to “The Annotated LLaMA”.
 One of the most brilliant and well-explained articles I have read is The Annotated Transformer and the Annotated DETR. It introduced Attention like no other post. The simple idea was to present an “annotated” version of the paper Attention is all you need along with code.
 I have tried to do something similar with the LLaMA models without which the commercial use of many Large Language models would not have been possible.</description>
     </item>
