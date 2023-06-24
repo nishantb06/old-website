@@ -15,7 +15,7 @@
       <guid>https://nishantb06.github.io/posts/llama_alpaca/</guid>
       <description>Foreword Welcome to “The Annotated LLaMA”.
 One of the most brilliant and well-explained articles I have read is The Annotated Transformer and the Annotated DETR. It introduced Attention like no other post. The simple idea was to present an “annotated” version of the paper Attention is all you need along with code.
-I have tried to do something similar with the LLaMA models without which the commercial use of many Large Language models would not have been possible.</description>
+I have tried to do something similar with the LLaMA models by Meta Research, without which the commercial use of many Large Language models would not have been possible.</description>
     </item>
     
     <item>
