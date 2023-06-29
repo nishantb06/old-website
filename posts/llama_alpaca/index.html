@@ -95,7 +95,7 @@ data, Chinchilla outperformed Gopher and other LLMs.</p>
 <p>DeepMind claims that <strong>the model size and the number of training tokens should instead increase at roughly the same rate to achieve optimal performance.</strong> If you get a 10x increase
 in compute, you should make your model 3.1x times bigger and the data you train over 3.1x bigger; if you get a 100x increase in compute, you should make your model 10x bigger and your data 10x bigger.</p>
 <h2 id="datasets-used">Datasets Used</h2>
-<p><img src="https://o.remove.bg/uploads/9c7ebf59-2220-46e8-a396-9f03c3cd0fe7/datasets.png" alt="Datasets used"></p>
+<p><img src="https://i.imgur.com/DhWpc17.png" alt="Datasets used"></p>
 <p>These datasets were used for Pretraining of the model, Note that Wikipedia and Books dataset were used in approximately 2 epochs, while other dataset had only 1 epochs. Overall this datasets is of 4.3 TB!!</p>
 <p>In short they have trained a large transformer on a large quantity of daya using standard optimizer (AdamW).</p>
 <h2 id="architecture">Architecture</h2>
@@ -144,9 +144,9 @@ in compute, you should make your model 3.1x times bigger and the data you train 
 </li>
 <li>
 <p>After successful download the directory will have the following structure</p>
-<p><img src="https://o.remove.bg/uploads/934d3409-6584-4f4f-a046-60e2af34e57f/weights1.png" alt="Note that the size of this folder is 13 GB !!!"></p>
+<p><img src="https://i.imgur.com/LsIuE3c.png" alt="Note that the size of this folder is 13 GB !!!"></p>
 <p>Note that the size of this folder is <strong>13 GB</strong> !!!</p>
-<p><img src="https://o.remove.bg/uploads/f074333a-a784-447a-b6e6-af16a9d150a8/weights2.png" alt="This is what the logs of a Successulf download will look like!"></p>
+<p><img src="https://i.imgur.com/YnhC8gG.png" alt="This is what the logs of a Successulf download will look like!"></p>
 <p>This is what the logs of a Successulf download will look like!</p>
 </li>
 <li>
@@ -342,14 +342,10 @@ in compute, you should make your model 3.1x times bigger and the data you train 
 <p><strong>Rotary Positional Embeddings</strong></p>
 <p><code>self.freq_cis</code> is a tensor (fixed and not a trainable parameter) given by the <code>precompute_freq_cis</code> function. Instead of using absolute or trainable positional encodings, LLaMA uses Rotary positional encodings, which are know to have faster convergence and better results on various sequence modelling tasks.</p>
 <p>Rotary encoding transforms pairs of features by rotating in the 2D plane. That is, it organizes the <em>d</em> features as 2<em>d</em> pairs. Each pair can be considered a coordinate in a 2D plane, and the encoding will rotate it by an angle depending on the position of the token.</p>
-<p>For now its enough to understand that the function returns a 2D tensor of shape (2048,64) or (2*max_seq_length , params.dim // n_heads), where each element is of the form</p>
-<p>$$
-\cos(\theta) + i \sin(\theta)
-$$</p>
-<p>Here $\theta$ is given by</p>
-<p>$$
-m/ \theta^{2n/128} , m \epsilon [0,2047] , n \epsilon [0,63]
-$$</p>
+<p>For now its enough to understand that the function returns a 2D tensor of shape (2048,64) or (2*max_seq_length , params.dim // n_heads), where each element is of the form
+<img src="https://i.imgur.com/tPHF68t.png" alt="iota3">
+Here <code>theta</code> is given by</p>
+<p><img src="https://i.imgur.com/6RifwFd.png" alt="iota2"></p>
 <ul>
 <li>
 <p>Code for generating positional embeddings</p>
@@ -692,7 +688,7 @@ $$</p>
 <p>The temperature determines how greedy the generative model is.</p>
 <p>If the temperature is low, the probabilities to sample other but the class with the highest log probability will be small, and the model will probably output the most correct text, but rather boring, with small variation.</p>
 <p>If the temperature is high, the model can output, with rather high probability, other words than those with the highest probability. The generated text will be more diverse, but there is a higher possibility of grammar mistakes and generation of nonsense.</p>
-<p><img src="https://o.remove.bg/uploads/96e8b1d2-4630-4fb3-96ee-c5c25130aa7d/temparature.png" alt="Untitled"></p>
+<p><img src="https://i.imgur.com/HCS0swK.png" alt="temparature"></p>
 <p>The difference between the low-temperature case (left) and the high-temperature (right) case for the categorical distribution is illustrated in the picture above, where the heights of the bars correspond to probabilities.</p>
 <p><strong>Sampling from top p probabilites</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample_top_p</span>(probs, <span style="color:#75715e"># a tensor of size (1, 32_000) with softmax already applied</span>
