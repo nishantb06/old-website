@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.102.3" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dev Containers: Open Vscode editor inside any Docker image &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Dev Containers: Open Vscode editor inside any Docker image</h1>
+  <time datetime=2024-01-01T14:10:41&#43;0530 class="post-date">Mon, Jan 1, 2024</time>
+  <p>Let’s say you have a docker image for an application and you want to run some test or experiment/add some new feature to that application. Normally I would build that image locally and mount the application directory as volume when I run that container. But something better exists</p>
+<p>Using Dev Containers is better because</p>
+<ol>
+<li>It gives the VS code experience for any docker image.</li>
+<li>Different VS code extensions can be used here like Linting, Copilot etc.</li>
+<li>Allows reproducabilty for any other developer.</li>
+</ol>
+<p><a href="https://www.youtube.com/watch?v=b1RavPr_878">Video</a></p>
+<h1 id="how-to-create-a-dev-container">How to create a dev container</h1>
+<h3 id="step-1-create-config-files">Step 1: Create config files</h3>
+<p>Open the command pallete in VS Code by <code>CMD + Shift + p</code> or <code>Cntrl + Shft + p</code> if you are in Windows. type this <code>Dev Containers: Add dev container config files</code> . Choose the language you want and any other functionality you want and press enter.</p>
+<p>This will create a <code>devcontainer.json</code> file inside a <code>.devcontainer</code> folder in your root</p>
+<p>this file will look something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#75715e">// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// README at: https://github.com/devcontainers/templates/tree/main/src/go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Go&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">&#34;image&#34;</span>: <span style="color:#e6db74">&#34;mcr.microsoft.com/devcontainers/go:1-${templateOption:imageVariant}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Features to add to the dev container. More info: https://containers.dev/features.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;features&#34;: {},
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Use &#39;forwardPorts&#39; to make a list of ports inside the container available locally.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;forwardPorts&#34;: [],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Use &#39;postCreateCommand&#39; to run commands after the container is created.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;postCreateCommand&#34;: &#34;go version&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Configure tool-specific properties.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;customizations&#34;: {},
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;remoteUser&#34;: &#34;root&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Here replace the name field to whatever is suitable and replace the image field by the name of your own custome image. Can see possible names by running <code>docker images</code> in you CLI</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Finally it should look something like this</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#75715e">// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// README at: https://github.com/devcontainers/templates/tree/main/src/go
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Go-dummy-app&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;image&#34;: &#34;mcr.microsoft.com/devcontainers/go:1-1.21-bullseye&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">&#34;image&#34;</span>: <span style="color:#e6db74">&#34;dummy-app&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Features to add to the dev container. More info: https://containers.dev/features.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;features&#34;: {},
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Use &#39;forwardPorts&#39; to make a list of ports inside the container available locally.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;forwardPorts&#34;: [],
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Use &#39;postCreateCommand&#39; to run commands after the container is created.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;postCreateCommand&#34;: &#34;go version&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Configure tool-specific properties.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;customizations&#34;: {},
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// &#34;remoteUser&#34;: &#34;root&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="step-2--open-dev-container">Step 2 : Open dev container</h3>
+<p>Again open Command pallete and type <code>Dev Container: reopen in container</code></p>
+<p>This will take a bit to reload and viola! you should be ready to go now</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
