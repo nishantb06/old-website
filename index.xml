@@ -6,7 +6,18 @@
     <description>Recent content on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jan 2024 14:10:41 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 12 Jan 2024 22:26:26 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pushing New Rows to BigQuery Table in GCP using Go</title>
+      <link>https://nishantb06.github.io/posts/go_bigquery/</link>
+      <pubDate>Fri, 12 Jan 2024 22:26:26 +0530</pubDate>
+      
+      <guid>https://nishantb06.github.io/posts/go_bigquery/</guid>
+      <description>In this blog post, we&amp;rsquo;ll explore how to push new rows into a BigQuery table using Go. BigQuery, a serverless and highly-scalable data warehouse, is a part of Google Cloud Platform (GCP). We will be using the cloud.google.com/go/bigquery package for Go to interact with BigQuery.
+Introduction Prerequisites Before diving into the code, make sure you have the following set up:
+A GCP project with BigQuery enabled Service account credentials in a JSON file Go installed on your machine Template package main import ( &amp;#34;context&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;time&amp;#34; &amp;#34;cloud.</description>
+    </item>
+    
     <item>
       <title>Dev Containers: Open Vscode editor inside any Docker image</title>
       <link>https://nishantb06.github.io/posts/dev_containers/</link>
