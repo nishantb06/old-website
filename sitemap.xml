@@ -2,7 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-<<<<<<< HEAD
     <loc>https://nishantb06.github.io/posts/torchserve/</loc>
     <lastmod>2024-03-31T23:39:16+05:30</lastmod>
   </url><url>
@@ -11,13 +10,6 @@
   </url><url>
     <loc>https://nishantb06.github.io/posts/</loc>
     <lastmod>2024-03-31T23:39:16+05:30</lastmod>
-=======
-    <loc>https://nishantb06.github.io/</loc>
-    <lastmod>2024-01-12T22:26:26+05:30</lastmod>
-  </url><url>
-    <loc>https://nishantb06.github.io/posts/</loc>
-    <lastmod>2024-01-12T22:26:26+05:30</lastmod>
->>>>>>> 23c63d6129d503f7dc0cbd29b25fb2956f08b120
   </url><url>
     <loc>https://nishantb06.github.io/posts/go_bigquery/</loc>
     <lastmod>2024-01-12T22:26:26+05:30</lastmod>

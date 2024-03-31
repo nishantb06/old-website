@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.102.3" />
+  <meta name="generator" content="Hugo 0.122.0">
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -313,7 +313,7 @@ in compute, you should make your model 3.1x times bigger and the data you train 
 </span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 4096 // 32 = 128, 1024 * 2</span>
 </span></span><span style="display:flex;"><span>        ) <span style="color:#75715e"># torch.Size([2048, 64])</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@torch</span><span style="color:#f92672">.</span>inference_mode()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@torch.inference_mode</span>()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, tokens: torch<span style="color:#f92672">.</span>Tensor, start_pos: int):
 </span></span><span style="display:flex;"><span>        _bsz, seqlen <span style="color:#f92672">=</span> tokens<span style="color:#f92672">.</span>shape <span style="color:#75715e"># (1,8)</span>
 </span></span><span style="display:flex;"><span>        h <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tok_embeddings(tokens) <span style="color:#75715e"># (1,8,4096)</span>

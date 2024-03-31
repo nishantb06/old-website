@@ -6,7 +6,6 @@
     <description>Recent content in Posts on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-<<<<<<< HEAD
     <lastBuildDate>Sun, 31 Mar 2024 23:39:16 +0530</lastBuildDate>
     <atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -16,83 +15,54 @@
       <guid>https://nishantb06.github.io/posts/torchserve/</guid>
       <description></description>
     </item>
-=======
-    <lastBuildDate>Fri, 12 Jan 2024 22:26:26 +0530</lastBuildDate><atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
->>>>>>> 23c63d6129d503f7dc0cbd29b25fb2956f08b120
     <item>
       <title>Pushing New Rows to BigQuery Table in GCP using Go</title>
       <link>https://nishantb06.github.io/posts/go_bigquery/</link>
       <pubDate>Fri, 12 Jan 2024 22:26:26 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/go_bigquery/</guid>
-      <description>In this blog post, we&amp;rsquo;ll explore how to push new rows into a BigQuery table using Go. BigQuery, a serverless and highly-scalable data warehouse, is a part of Google Cloud Platform (GCP). We will be using the cloud.google.com/go/bigquery package for Go to interact with BigQuery.
-Introduction Prerequisites Before diving into the code, make sure you have the following set up:
-A GCP project with BigQuery enabled Service account credentials in a JSON file Go installed on your machine Template package main import ( &amp;#34;context&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;time&amp;#34; &amp;#34;cloud.</description>
+      <description>In this blog post, we&amp;rsquo;ll explore how to push new rows into a BigQuery table using Go. BigQuery, a serverless and highly-scalable data warehouse, is a part of Google Cloud Platform (GCP). We will be using the cloud.google.com/go/bigquery package for Go to interact with BigQuery.&#xA;Introduction Prerequisites Before diving into the code, make sure you have the following set up:&#xA;A GCP project with BigQuery enabled Service account credentials in a JSON file Go installed on your machine Template package main import ( &amp;#34;context&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;log&amp;#34; &amp;#34;time&amp;#34; &amp;#34;cloud.</description>
     </item>
-    
     <item>
       <title>Dev Containers: Open Vscode editor inside any Docker image</title>
       <link>https://nishantb06.github.io/posts/dev_containers/</link>
       <pubDate>Mon, 01 Jan 2024 14:10:41 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/dev_containers/</guid>
-      <description>Let’s say you have a docker image for an application and you want to run some test or experiment/add some new feature to that application. Normally I would build that image locally and mount the application directory as volume when I run that container. But something better exists
-Using Dev Containers is better because
-It gives the VS code experience for any docker image. Different VS code extensions can be used here like Linting, Copilot etc.</description>
+      <description>Let’s say you have a docker image for an application and you want to run some test or experiment/add some new feature to that application. Normally I would build that image locally and mount the application directory as volume when I run that container. But something better exists&#xA;Using Dev Containers is better because&#xA;It gives the VS code experience for any docker image. Different VS code extensions can be used here like Linting, Copilot etc.</description>
     </item>
-    
     <item>
       <title>The Annotated LLaMA</title>
       <link>https://nishantb06.github.io/posts/llama_alpaca/</link>
       <pubDate>Sat, 15 Apr 2023 13:34:45 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/llama_alpaca/</guid>
-      <description>Foreword Welcome to “The Annotated LLaMA”.
-One of the most brilliant and well-explained articles I have read is The Annotated Transformer and the Annotated DETR. It introduced Attention like no other post. The simple idea was to present an “annotated” version of the paper Attention is all you need along with code.
-I have tried to do something similar with the LLaMA models by Meta Research, without which the commercial use of many Large Language models would not have been possible.</description>
+      <description>Foreword Welcome to “The Annotated LLaMA”.&#xA;One of the most brilliant and well-explained articles I have read is The Annotated Transformer and the Annotated DETR. It introduced Attention like no other post. The simple idea was to present an “annotated” version of the paper Attention is all you need along with code.&#xA;I have tried to do something similar with the LLaMA models by Meta Research, without which the commercial use of many Large Language models would not have been possible.</description>
     </item>
-    
     <item>
       <title>A Self-Supervised Descriptor for Image Copy Detection - Review</title>
       <link>https://nishantb06.github.io/posts/sscd/</link>
       <pubDate>Fri, 13 Jan 2023 07:40:39 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/sscd/</guid>
-      <description>A Self-Supervised Descriptor for Image Copy Detection - Review [Paper][Code]
-They have built upon the work of SimCLR and successfully tackled its limitations. Do give this paper a read if you are looking for a way of generating powerful embeddings/descriptors for your image dataset.
-Good things about the paper It Introduces regularisation term based on Entropy which is used to make the descriptors more sparse. Which means that negative images wont be as “close” to each other as they used to be in SimCLR.</description>
+      <description>A Self-Supervised Descriptor for Image Copy Detection - Review [Paper][Code]&#xA;They have built upon the work of SimCLR and successfully tackled its limitations. Do give this paper a read if you are looking for a way of generating powerful embeddings/descriptors for your image dataset.&#xA;Good things about the paper It Introduces regularisation term based on Entropy which is used to make the descriptors more sparse. Which means that negative images wont be as “close” to each other as they used to be in SimCLR.</description>
     </item>
-    
     <item>
       <title>TMUX for Machine Learning Engineers</title>
       <link>https://nishantb06.github.io/posts/tmux/</link>
       <pubDate>Sun, 16 Oct 2022 00:06:25 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/tmux/</guid>
-      <description>What is Tmux TMUX (Terminal Multiplexer) is a program which helps create and manage various terminal sessions created from a terminal itself. We can detach these newly created terminal which helps in asyncronously running multiple programs.
-These terminal will keep on executing a particular command in the background untill we explicitly stop it after attaching it to an active terminal session.
-We can create multiple terminal sessions and view and manage them in the same window by toggling between them.</description>
+      <description>What is Tmux TMUX (Terminal Multiplexer) is a program which helps create and manage various terminal sessions created from a terminal itself. We can detach these newly created terminal which helps in asyncronously running multiple programs.&#xA;These terminal will keep on executing a particular command in the background untill we explicitly stop it after attaching it to an active terminal session.&#xA;We can create multiple terminal sessions and view and manage them in the same window by toggling between them.</description>
     </item>
-    
     <item>
       <title>Docker Cheatsheet</title>
       <link>https://nishantb06.github.io/posts/third/</link>
       <pubDate>Sun, 11 Sep 2022 10:15:51 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/third/</guid>
-      <description>But it works on my machine !!?? The above sentence is exactly the problem docker solves -
-Earlier there was no way to run 2 applications (different OS) on the same machine. VMware solved this problem by introducing Virtual Machines. But we would have to separately assign RAM and storage for our second machine. This was still a bottleneck as we can&amp;rsquo;t ship applications effectively with this, which is why Docker was invented.</description>
+      <description>But it works on my machine !!?? The above sentence is exactly the problem docker solves -&#xA;Earlier there was no way to run 2 applications (different OS) on the same machine. VMware solved this problem by introducing Virtual Machines. But we would have to separately assign RAM and storage for our second machine. This was still a bottleneck as we can&amp;rsquo;t ship applications effectively with this, which is why Docker was invented.</description>
     </item>
-    
     <item>
       <title>Mobile-VIT [Paper Summary]</title>
       <link>https://nishantb06.github.io/posts/second/</link>
       <pubDate>Fri, 09 Sep 2022 21:30:05 +0530</pubDate>
-      
       <guid>https://nishantb06.github.io/posts/second/</guid>
-      <description>Papers With Code
-Observations Theres a global inductive bias in CNN’s (invariance to shift and scale) which is why CNN’s have comparable performance w.r.t Transformers (Reference to this statement is in the Transformer survey paper). Transformer models overcome this with the help of extensive training regimes, large datasets and larger models. (It will be good if we mention this in the paper somewhere) CoreML library was used to perform testing on I- phone 12 Good things about the paper the paper has two significant contributions A novel architecture which combines convolution block from MobileNetV2 and the self attention block.</description>
+      <description>Papers With Code&#xA;Observations Theres a global inductive bias in CNN’s (invariance to shift and scale) which is why CNN’s have comparable performance w.r.t Transformers (Reference to this statement is in the Transformer survey paper). Transformer models overcome this with the help of extensive training regimes, large datasets and larger models. (It will be good if we mention this in the paper somewhere) CoreML library was used to perform testing on I- phone 12 Good things about the paper the paper has two significant contributions A novel architecture which combines convolution block from MobileNetV2 and the self attention block.</description>
     </item>
-    
   </channel>
 </rss>
