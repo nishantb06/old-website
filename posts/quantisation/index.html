@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.122.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Quantisation Notes &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="/resume/"> Portfolio </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Quantisation Notes</h1>
+  <time datetime=2024-05-07T19:38:20&#43;0530 class="post-date">Tue, May 7, 2024</time>
+  <p><a href="https://leimao.github.io/article/Neural-Networks-Quantization/">Lie mao blog very detailed with code </a>
+<a href="https://iq.opengenus.org/basics-of-quantization-in-ml/">https://iq.opengenus.org/basics-of-quantization-in-ml/</a>
+<a href="https://www.youtube.com/watch?v=XM8pllpBVA0">See for code for activation aware quantization</a>
+<a href="https://huggingface.co/docs/optimum/concept_guides/quantization">Hugging face quantisation</a>
+[Pytorch quantisation api docs]</p>
+<p>There are 4 methods to optimise a model, GPTQ, activation aware quantized training, bits and bytes , packages like huggingfuace optimum, or pytorch api itself.</p>
+<p>Scripting the model can make inference faster for a few reasons:</p>
+<ol>
+<li>
+<p><strong>Reduced Overhead</strong>: Scripted models can have lower overhead compared to their original Python counterparts because the script represents a more optimized version of the model&rsquo;s forward pass. This can lead to faster execution times.</p>
+</li>
+<li>
+<p><strong>Optimizations</strong>: When you use <code>torch.jit.script</code> to script a model, PyTorch applies various optimizations to the script, such as constant folding and operator fusion, which can improve performance during inference.</p>
+</li>
+<li>
+<p><strong>Parallelization</strong>: Scripted models can take advantage of parallelization opportunities more effectively, especially when deployed on hardware accelerators like GPUs, due to the way the operations are organized and optimized in the script.</p>
+</li>
+<li>
+<p><strong>Serialization</strong>: Scripted models can be serialized and deserialized more efficiently, which is important for deployment scenarios where models need to be loaded quickly into memory.</p>
+</li>
+<li>
+<p><strong>Platform Independence</strong>: Scripted models are platform-independent once they are compiled, meaning they can be executed on any platform that supports PyTorch without needing the original Python code, which can be beneficial for deployment in different environments.</p>
+</li>
+</ol>
+<p>Overall, scripting a model can lead to faster inference times due to these optimizations and efficiencies, especially in production environments where speed and resource usage are critical.</p>
+<p>Tracing a model using <code>torch.jit.trace</code> and <code>torch.jit.script</code> and quantization are two distinct processes in PyTorch, each serving different purposes:</p>
+<ol>
+<li>
+<p><strong>Tracing</strong>:</p>
+<ul>
+<li><strong><code>torch.jit.trace</code></strong>: This function takes an input tensor and traces the operations that occur during the forward pass of the model. It records the operations as a <code>ScriptModule</code>, which can be used for inference. Tracing is useful for models that have fixed control flow (i.e., the execution of the model does not depend on dynamic conditions like loops or if statements).</li>
+<li><strong><code>torch.jit.script</code></strong>: This decorator converts a Python function into a <code>ScriptModule</code>, allowing for more flexibility in defining the model&rsquo;s forward method. It is used when the model has dynamic control flow.</li>
+</ul>
+</li>
+<li>
+<p><strong>Quantization</strong>:</p>
+<ul>
+<li><strong>Quantization</strong> is the process of converting a model to use fewer bits to represent weights and activations, usually from 32-bit floating point to 8-bit integers (or even lower bit representations). This can significantly reduce the model size and improve inference speed, especially on hardware that supports low-precision operations efficiently.</li>
+<li>PyTorch provides tools like <code>torch.quantization</code> module to help with quantization, including functions to prepare the model for quantization (<code>torch.quantization.prepare</code>) and to actually quantize the model (<code>torch.quantization.convert</code>).</li>
+</ul>
+</li>
+</ol>
+<p>In summary, tracing is about capturing the operations of a model to create a script representation for efficient inference, while quantization is about reducing the precision of the model&rsquo;s parameters and activations to improve performance and reduce memory footprint.</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

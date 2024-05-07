@@ -6,8 +6,22 @@
     <description>Recent content in Posts on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Mar 2024 23:39:16 +0530</lastBuildDate>
+    <lastBuildDate>Tue, 07 May 2024 19:38:20 +0530</lastBuildDate>
     <atom:link href="https://nishantb06.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Quantisation Notes</title>
+      <link>https://nishantb06.github.io/posts/quantisation/</link>
+      <pubDate>Tue, 07 May 2024 19:38:20 +0530</pubDate>
+      <guid>https://nishantb06.github.io/posts/quantisation/</guid>
+      <description>Lie mao blog very detailed with code https://iq.opengenus.org/basics-of-quantization-in-ml/ See for code for activation aware quantization Hugging face quantisation [Pytorch quantisation api docs]&#xA;There are 4 methods to optimise a model, GPTQ, activation aware quantized training, bits and bytes , packages like huggingfuace optimum, or pytorch api itself.&#xA;Scripting the model can make inference faster for a few reasons:&#xA;Reduced Overhead: Scripted models can have lower overhead compared to their original Python counterparts because the script represents a more optimized version of the model&amp;rsquo;s forward pass.</description>
+    </item>
+    <item>
+      <title>Distributed training Notes</title>
+      <link>https://nishantb06.github.io/posts/distributed_training/</link>
+      <pubDate>Tue, 07 May 2024 19:37:39 +0530</pubDate>
+      <guid>https://nishantb06.github.io/posts/distributed_training/</guid>
+      <description>Data Parrallel Each GPU holds the full copy of the model Each GPU/Process/worker gets a different copy of the data to train on After each backword pass the master node will average out the model parameters . this averaged model will be shared between the workers again.&#xA;Distributed Data Parrallel after a forward pass, gradients are calculated for each worker and the master node then averages out the gradients , calculates the new model weights and shares these with the workers.</description>
+    </item>
     <item>
       <title>Deploying Models at Scale using Torchserve</title>
       <link>https://nishantb06.github.io/posts/torchserve/</link>

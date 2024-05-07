@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://nishantb06.github.io/</loc>
+    <lastmod>2024-05-07T19:38:20+05:30</lastmod>
+  </url><url>
+    <loc>https://nishantb06.github.io/posts/</loc>
+    <lastmod>2024-05-07T19:38:20+05:30</lastmod>
+  </url><url>
+    <loc>https://nishantb06.github.io/posts/quantisation/</loc>
+    <lastmod>2024-05-07T19:38:20+05:30</lastmod>
+  </url><url>
+    <loc>https://nishantb06.github.io/posts/distributed_training/</loc>
+    <lastmod>2024-05-07T19:37:39+05:30</lastmod>
+  </url><url>
     <loc>https://nishantb06.github.io/resume/</loc>
     <lastmod>2024-05-04T21:25:02+01:00</lastmod>
   </url><url>
     <loc>https://nishantb06.github.io/posts/torchserve/</loc>
-    <lastmod>2024-03-31T23:39:16+05:30</lastmod>
-  </url><url>
-    <loc>https://nishantb06.github.io/</loc>
-    <lastmod>2024-03-31T23:39:16+05:30</lastmod>
-  </url><url>
-    <loc>https://nishantb06.github.io/posts/</loc>
     <lastmod>2024-03-31T23:39:16+05:30</lastmod>
   </url><url>
     <loc>https://nishantb06.github.io/posts/go_bigquery/</loc>

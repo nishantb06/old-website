@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.122.0">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Distributed training Notes &middot; Nishant Bhansali</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://nishantb06.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://nishantb06.github.io/"><h1>Nishant Bhansali</h1></a>
+      <p class="lead">
+       Currently resolving CUDA out of memory error 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://nishantb06.github.io/">Home</a> </li>
+        <li><a href="/about/"> About Me </a></li><li><a href="https://github.com/nishantb06/"> Github </a></li><li><a href="https://www.kaggle.com/nishantbhansali"> Kaggle </a></li><li><a href="https://www.linkedin.com/in/nishantbhansali/"> LinkedIn </a></li><li><a href="/resume/"> Portfolio </a></li><li><a href="https://twitter.com/itsnishant14"> Twitter </a></li>
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Distributed training Notes</h1>
+  <time datetime=2024-05-07T19:37:39&#43;0530 class="post-date">Tue, May 7, 2024</time>
+  <h3 id="data-parrallel">Data Parrallel</h3>
+<p>Each GPU holds the full copy of the model
+Each GPU/Process/worker gets a different copy of the data to train on
+After each backword pass the master node will average out the model parameters . this averaged model will be shared between the workers again.</p>
+<h3 id="distributed-data-parrallel">Distributed Data Parrallel</h3>
+<p>after a forward pass, gradients are calculated for each worker and the master node then averages out the gradients , calculates the new model weights and shares these with the workers.  An algorithm called as all reduce is used to collect and average out the gradients.
+DDP over DP any day.</p>
+<p>Blogs
+<a href="https://leimao.github.io/blog/PyTorch-Distributed-Training/">Lie Mao</a>
+<a href="https://lambdalabs.com/blog/multi-node-pytorch-distributed-training-guide#launch-multi-node-pytorch-distributed-applications">Lambda Labs</a>
+<a href="https://pytorch.org/tutorials/intermediate/dist_tuto.html">Pytorch blogs</a>
+<a href="https://medium.com/@nishantbhansali80/data-parallel-with-pytorch-on-cpus-3e89312db6c0">My blog on Medium</a>,  see its resources in the botttom</p>
+<p>Chats with chatGPT</p>
+<p>ets say during a single node single worker my learning rate was 0.0001, what will be the learning rate during a 4 node , 2 GPU per node setup</p>
+<p>In a distributed training setup, the learning rate typically needs to be adjusted to account for the increased computational resources. When you scale up from a single node with a single worker to multiple nodes with multiple GPUs per node, you may need to increase the learning rate to maintain the same effective learning rate per parameter update. The exact adjustment factor depends on the specifics of your model, dataset, and training process, but a common approach is to scale the learning rate linearly with the number of GPUs.</p>
+<p>For example, if your original learning rate on a single GPU was 0.0001, and you scale up to 4 nodes with 2 GPUs per node (total of 8 GPUs), you might increase the learning rate by a factor of 8. So, the new learning rate could be:</p>
+<p>[ 0.0001 \times 8 = 0.0008 ]</p>
+<p>However, this is a rough guideline and the actual adjustment factor may vary based on your specific setup and requirements. It&rsquo;s often necessary to experimentally determine the optimal learning rate for your distributed training configuration.</p>
+<p>Certainly! Here are some interview questions and their answers regarding PyTorch distributed training, focusing on distributed data parallelism:</p>
+<ol>
+<li>
+<p><strong>What is distributed data parallelism in PyTorch?</strong></p>
+<ul>
+<li><strong>Answer:</strong> Distributed data parallelism in PyTorch is a technique used to train deep learning models across multiple GPUs or machines. It involves splitting the mini-batch of data across different devices, performing forward and backward passes independently on each device, and then synchronizing gradients across all devices to update the model parameters.</li>
+</ul>
+</li>
+<li>
+<p><strong>How does PyTorch&rsquo;s <code>torch.nn.parallel.DistributedDataParallel</code> module work?</strong></p>
+<ul>
+<li><strong>Answer:</strong> <code>torch.nn.parallel.DistributedDataParallel</code> (DDP) is a PyTorch module that wraps a model to enable distributed data parallelism. It utilizes the <code>torch.distributed</code> package for communication between processes. Each process owns a portion of the model&rsquo;s parameters and computes gradients independently. Gradients are then synchronized across all processes using the all-reduce algorithm.</li>
+</ul>
+</li>
+<li>
+<p><strong>What are the benefits of using distributed data parallelism?</strong></p>
+<ul>
+<li><strong>Answer:</strong> Distributed data parallelism allows for training larger models that do not fit into a single GPU&rsquo;s memory. It also reduces training time by distributing computations across multiple devices or machines, enabling faster convergence.</li>
+</ul>
+</li>
+<li>
+<p><strong>How do you initialize a PyTorch distributed training environment?</strong></p>
+<ul>
+<li><strong>Answer:</strong> To initialize a PyTorch distributed training environment, you need to first initialize the <code>torch.distributed</code> package, set the backend (e.g., using <code>init_process_group</code>), and then set the rank and size of each process. Finally, you need to wrap your model with <code>torch.nn.parallel.DistributedDataParallel</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Can you explain how gradient synchronization works in distributed data parallelism?</strong></p>
+<ul>
+<li><strong>Answer:</strong> In distributed data parallelism, after computing gradients on each device, these gradients are synchronized across all devices using an all-reduce operation. This operation sums gradients from all processes and distributes the result back to each process. This ensures that all processes have the same updated gradients for model parameter updates.</li>
+</ul>
+</li>
+<li>
+<p><strong>How do you handle uneven data distribution in distributed data parallelism?</strong></p>
+<ul>
+<li><strong>Answer:</strong> PyTorch provides a <code>torch.utils.data.distributed.DistributedSampler</code> class, which can be used with a <code>torch.utils.data.DataLoader</code> to ensure that each process gets a portion of the dataset that is proportional to its rank. This helps in handling uneven data distribution.</li>
+</ul>
+</li>
+<li>
+<p><strong>What are some common issues you might encounter when using distributed data parallelism in PyTorch?</strong></p>
+<ul>
+<li><strong>Answer:</strong> Some common issues include:
+<ul>
+<li>Ensuring that each process is properly initialized and has the correct rank and size.</li>
+<li>Properly handling data loading and distribution to avoid bottlenecks.</li>
+<li>Synchronizing the model parameters correctly to avoid stale gradients.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>How can you monitor the progress of a distributed training job in PyTorch?</strong></p>
+<ul>
+<li><strong>Answer:</strong> You can use logging tools like TensorBoard or PyTorch&rsquo;s <code>torch.utils.tensorboard.SummaryWriter</code> to log metrics such as loss, accuracy, and learning rate during training. Additionally, you can use PyTorch&rsquo;s <code>torch.distributed.barrier()</code> function to synchronize processes at specific points in your training code for debugging purposes.</li>
+</ul>
+</li>
+</ol>
+<p>These questions should help you prepare for interviews focusing on PyTorch distributed training, particularly distributed data parallelism.</p>
+
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

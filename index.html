@@ -53,6 +53,32 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
+    <a href="https://nishantb06.github.io/posts/quantisation/">Quantisation Notes</a>
+  </h1>
+  <time datetime="2024-05-07T19:38:20&#43;0530" class="post-date">Tue, May 7, 2024</time>
+  Lie mao blog very detailed with code https://iq.opengenus.org/basics-of-quantization-in-ml/ See for code for activation aware quantization Hugging face quantisation [Pytorch quantisation api docs]
+There are 4 methods to optimise a model, GPTQ, activation aware quantized training, bits and bytes , packages like huggingfuace optimum, or pytorch api itself.
+Scripting the model can make inference faster for a few reasons:
+Reduced Overhead: Scripted models can have lower overhead compared to their original Python counterparts because the script represents a more optimized version of the model&rsquo;s forward pass.
+  
+  <div class="read-more-link">
+    <a href="/posts/quantisation/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://nishantb06.github.io/posts/distributed_training/">Distributed training Notes</a>
+  </h1>
+  <time datetime="2024-05-07T19:37:39&#43;0530" class="post-date">Tue, May 7, 2024</time>
+  Data Parrallel Each GPU holds the full copy of the model Each GPU/Process/worker gets a different copy of the data to train on After each backword pass the master node will average out the model parameters . this averaged model will be shared between the workers again.
+Distributed Data Parrallel after a forward pass, gradients are calculated for each worker and the master node then averages out the gradients , calculates the new model weights and shares these with the workers.
+  
+  <div class="read-more-link">
+    <a href="/posts/distributed_training/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://nishantb06.github.io/resume/">Portfolio</a>
   </h1>
   <time datetime="2024-05-04T21:25:02&#43;0100" class="post-date">Sat, May 4, 2024</time>
