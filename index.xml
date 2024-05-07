@@ -6,8 +6,15 @@
     <description>Recent content on Nishant Bhansali</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 Mar 2024 23:39:16 +0530</lastBuildDate>
+    <lastBuildDate>Sat, 04 May 2024 21:25:02 +0100</lastBuildDate>
     <atom:link href="https://nishantb06.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Portfolio</title>
+      <link>https://nishantb06.github.io/resume/</link>
+      <pubDate>Sat, 04 May 2024 21:25:02 +0100</pubDate>
+      <guid>https://nishantb06.github.io/resume/</guid>
+      <description>Hi, after my extensive work on Content Moderation Systems at Sharechat, I consider myself a generalist who can train, finetune, deploy Deep Learning Models across different modalites (Vision, NLP, Audio) in scalable production environments. My everyday work has included everything from Microsoft Excel to Kubernetes and working together with folks from Product, Operation, Data Scientists and Engineers alike. With a base in Computer Vision, I have a thorough understanding of how to train/finetune LLM&amp;rsquo;s and how to build RAG applications with them as well.</description>
+    </item>
     <item>
       <title>Deploying Models at Scale using Torchserve</title>
       <link>https://nishantb06.github.io/posts/torchserve/</link>
