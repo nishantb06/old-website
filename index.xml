@@ -34,7 +34,7 @@
       <link>https://nishantb06.github.io/posts/torchserve/</link>
       <pubDate>Sun, 31 Mar 2024 23:39:16 +0530</pubDate>
       <guid>https://nishantb06.github.io/posts/torchserve/</guid>
-      <description></description>
+      <description>AI Shit&#xA;TorchServe is a flexible and easy to use tool for serving PyTorch machine learning (ML) models at scale. It is part of the PyTorch ecosystem and was developed in collaboration with AWS to facilitate the deployment of PyTorch models in production environments.&#xA;TorchServe simplifies the process of deploying PyTorch models by providing a straightforward and standardized way to package and serve them. It supports multiple types of models, including those for image and text classification, object detection, and more.</description>
     </item>
     <item>
       <title>Pushing New Rows to BigQuery Table in GCP using Go</title>
